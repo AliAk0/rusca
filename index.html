@@ -116,7 +116,7 @@ footer{border-top:1px solid var(--line);padding:14px 0 30px;color:var(--muted);f
   <button data-s="read">🔤 Okuma</button>
   <button data-s="errors">⚠️ Hatalar</button>
   <button data-s="sprint">⚡ Sprint</button>
-  <button data-s="exam">🎓 Sınav</button>
+  <button data-s="exam">🎓 Sınavlar</button>
 </nav>
 
 <!-- ============ HOME ============ -->
@@ -186,8 +186,12 @@ footer{border-top:1px solid var(--line);padding:14px 0 30px;color:var(--muted);f
 
 <!-- ============ EXAM ============ -->
 <section id="exam">
-  <h2>🎓 Blok Sınavı</h2>
-  <p class="muted">20 soru • Geçme notu %80 • Geçersen sonraki hat açılır.</p>
+  <h2>🎓 Sınavlar</h2>
+  <div class="row" style="margin-bottom:12px">
+    <button class="btn" id="tabBlock">🚇 Blok Sınavı</button>
+    <button class="btn" id="tabCum">📚 Kümülatif</button>
+    <button class="btn" id="tabWeak">🎯 Zayıf Noktalar</button>
+  </div>
   <div id="examArea"></div>
 </section>
 
@@ -326,6 +330,84 @@ const ERR_SEED=[
  {id:"domoy",title:"домой (eve doğru)",items:[{q:"Вечером я еду ___ .",opts:["в дома","домой","на дом"],a:1}]}
 ];
 
+
+/* Bölüm bazlı kural notları — Çalış modunda gösterilir */
+const RULES={
+1:[["Temel Kural","Rusçada 'am/is/are' fiili yok. <b>Я инженер</b> = kelime kelime 'Ben mühendis.'"],
+   ["Soru Yapmak","Sadece tonlama yeter: <b>Он студент?</b> = 'O öğrenci mi?' — ek gerekmez."],
+   ["Cognate'ler","доктор, инженер, музыкант... Yüzlerce tanıdık kelime var, zaten biliyorsun."]],
+2:[["Cinsiyet Kalıbı","<b>-А</b> sesiyle biten kelimeler kadın → <b>моя/твоя</b>. Diğerleri erkek → <b>мой/твой</b>."],
+   ["İstisna: папа","папа -а ile biter ama erkek: <b>мой папа</b> ✅ &nbsp; моя папа ❌"],
+   ["İpucu","Ezberleme, son sesi duy: '-А mı? Моя. Değil mi? Мой.'"]],
+3:[["Milliyet Kalıbı","Kadın milliyetleri hep <b>-КА</b> ile biter: американКА, канадКА, турчанКА"],
+   ["Erkek vs Kadın","Он → <b>-ец / -иец / -ин</b> &nbsp;|&nbsp; Она → <b>-ка / -анка / -ийка</b>"],
+   ["Arkadaş","<b>друг</b> = erkek arkadaş &nbsp;|&nbsp; <b>подруга</b> = kız arkadaş"]],
+4:[["SLT: Меня зовут","Kelime kelime: 'Beni çağırıyorlar...' → Rusçada 'adım' kelimesi yok, kalıbı bütün ezberle."],
+   ["Resmi / Samimi","Yaşlı, yabancı, patron → <b>вы</b> &nbsp;|&nbsp; Arkadaş, aile, akran → <b>ты</b>"],
+   ["по работе","Kalıp olarak ezberle — 'на бизнес' Rusçada kullanılmaz."]],
+5:[["SLT: Мне 24 года","Kelime kelime: 'Bana 24 yıl (var)' — yaşta <b>мне</b> kullanılır, я değil!"],
+   ["год / года / лет","<b>1</b> ile biterse год &nbsp;|&nbsp; <b>2,3,4</b> ile biterse года &nbsp;|&nbsp; <b>5-20</b> lет"],
+   ["11-19 Kalıbı","Hepsi <b>-надцать</b> ile biter = 'üzerine on'. Türkçedeki 'on üç' mantığı."],
+   ["Birleşik Sayı","Büyük sayı önce: тридцать один (31), двадцать пять (25)."]],
+6:[["Sahiplik Kalıbı","<b>У меня есть</b> = 'Bende var'. Asla 'у мне' değil!"],
+   ["Yok Hali","<b>У меня нет</b> + kelime <b>-и/-я</b> alır: у меня нет семьи, нет времени"],
+   ["Yaş Karşılaştırma","<b>старше меня</b> = benden büyük &nbsp;|&nbsp; <b>младше меня</b> = benden küçük"]],
+7:[["Prepozisyonel Hal","<b>в</b> + şehir → kelime sonu değişir: Адана→<b>Адане</b>, Хатай→<b>Хатае</b>, Москва→<b>Москве</b>"],
+   ["Nereden?","<b>из</b> + şehir → <b>-ы/-и</b> alır: Я из <b>Аданы</b>, Я из <b>Москвы</b>"],
+   ["Fiil Çekimi","я жив<b>у</b> / ты жив<b>ёшь</b> / он жив<b>ёт</b> / они жив<b>ут</b>"]],
+8:[["-ю Kuralı","<b>я</b> ile başlayan fiiller genelde <b>-ю</b> ile biter: я работа<b>ю</b>, я знa<b>ю</b>, я понима<b>ю</b>"],
+   ["Dil Konuşmak","<b>говорить по-русски</b> — dil hep <b>по-</b> ile: по-английски, по-турецки"],
+   ["Ben Anlamıyorum","<b>Я не понимаю</b> — en çok kullanacağın cümle, ezberle!"]],
+9:[["иду vs еду","Yürüyerek → <b>я иду</b> &nbsp;|&nbsp; Araçla → <b>я еду на</b> + araç"],
+   ["домой","'Eve doğru' için özel kelime: <b>домой</b>. 'в дома' ❌ 'на дом' ❌"],
+   ["Zarflar в almaz","<b>утром</b>, <b>вечером</b>, <b>днём</b> tek başlarına kullanılır — 'в утром' ❌"],
+   ["Refleksif Fiiller","я просыпа<b>юсь</b>, я лож<b>усь</b> — sonundaki -сь/-съ takısı düşmez!"]],
+10:[["час / часа / часов","<b>1</b>→час &nbsp;|&nbsp; <b>2,3,4</b>→часа &nbsp;|&nbsp; <b>5-12</b>→часов. (год kuralının ikizi!)"],
+    ["Saat Kaç? vs Kaçta?","<b>Сейчас три часа</b> (saat üç — в yok) &nbsp;|&nbsp; <b>В три часа</b> (üçte — в var)"],
+    ["Buçuk & Çeyrek","Konuşma dilinde basitçe sayı+sayı: <b>пять тридцать</b> (5:30), <b>семь пятнадцать</b> (7:15)"],
+    ["Saatle Birleşince","утром→<b>утра</b>, вечером→<b>вечера</b>: в семь утра, в пять вечера"],
+    ["Aralık","<b>с ... до ...</b> = ...dan ...a kadar → с восьми до пяти"]],
+11:[["Araç Kalıbı","<b>я еду на</b> + araç: на метро, на автобусе, на такси, на машине"],
+    ["SLT: на метро","Kelime kelime 'metro ÜZERİNDE' — Rusça araçları binilen yüzey gibi görür."],
+    ["Yürüyerek","<b>пешком</b> tek başına kullanılır, 'на' almaz: Я иду пешком ✅"]],
+12:[["Nerede?","<b>в</b> + kapalı mekan (в магазине, в банке) &nbsp;|&nbsp; <b>на</b> + açık/etkinlik (на работе, на рынке)"],
+    ["Var mı?","<b>Здесь есть...?</b> = Burada ... var mı?"]],
+13:[["Kibar İstek","<b>Можно ...?</b> = ... olur mu / alabilir miyim? En kibar kalıp."],
+    ["İstiyorum","<b>Я хочу</b> + isim veya mastar fiil: Я хочу чай / Я хочу есть"],
+    ["пожалуйста","Her isteğin sonuna ekle — Ruslar bunu çok kullanır."]],
+14:[["Fiyat Sorma","<b>Сколько это стоит?</b> — 'Bu ne kadar duruyor?' (SLT)"],
+    ["Pahalı/Ucuz","<b>дорого</b> (pahalı) &nbsp;|&nbsp; <b>дёшево</b> (ucuz)"]],
+15:[["Yön Kalıpları","<b>прямо</b> (düz) &nbsp;|&nbsp; <b>налево</b> (sola) &nbsp;|&nbsp; <b>направо</b> (sağa)"],
+    ["Mesafe","<b>далеко</b> (uzak) &nbsp;|&nbsp; <b>близко</b> (yakın) &nbsp;|&nbsp; <b>рядом</b> (hemen yanında)"]],
+16:[["хотеть Çekimi","я <b>хочу</b> / ты <b>хочешь</b> / он <b>хочет</b> / мы <b>хотим</b> — düzensiz, ezberle!"],
+    ["Telaffuz","<b>хочу</b> = 'haçu' — Х harfi yumuşak h, 'ğ' değil!"]],
+17:[["любить vs нравится","<b>Я люблю</b> = severim (genel) &nbsp;|&nbsp; <b>Мне нравится</b> = hoşuma gidiyor (anlık/özel)"],
+    ["Mastar Kuralı","нравится + <b>mastar</b>: Мне нравится читать ✅ (читаю ❌)"]],
+18:[["Geçmiş Zaman Kalıbı","Erkek → <b>-л</b> (работал), Kadın → <b>-ла</b> (работала), Çoğul → <b>-ли</b>"],
+    ["Kolay Kısım","Geçmiş zamanda kişi çekimi yok! Sadece cinsiyet ve çoğul var."]],
+19:[["Gelecek Zaman","<b>буду</b> + mastar fiil: Я буду работать (çalışacağım)"],
+    ["Çekim","я буду / ты будешь / он будет / мы будем"]],
+20:[["Sıfat Uyumu","Sıfat ismin cinsiyetine uyar: больш<b>ой</b> город (e) / больш<b>ая</b> книга (k)"],
+    ["очень","<b>очень</b> = çok → очень хорошо, очень вкусно"]],
+21:[["Давай","<b>Давай</b> + biz-formu fiil = 'Hadi ...': Давай встретимся!"],
+    ["Müsaitlik","<b>свободен</b> (e) / <b>свободна</b> (k) = müsait"]],
+22:[["Sipariş","<b>Я хочу заказать</b> = sipariş vermek istiyorum"],
+    ["Kişi Sayısı","<b>на двоих</b> (2 kişilik), <b>на троих</b> (3 kişilik)"]],
+23:[["Ne Yapıyorsun?","<b>Чем ты занимаешься?</b> = Neyle uğraşıyorsun? (hobi/meslek)"],
+    ["Boş Zaman","<b>в свободное время</b> = boş zamanda"]],
+24:[["Hava Kalıbı","<b>Сегодня жарко/холодно</b> — 'дир' gerekmez, sadece sıfat."],
+    ["Mevsimde","зимой (kışın), летом (yazın), весной (ilkbaharda), осенью (sonbaharda)"]],
+25:[["Nereye?","<b>в</b> + şehir (yönelme): Я еду <b>в Москву</b> (Moskova'ya)"],
+    ["Nereden?","<b>из</b> + şehir: Я приехал <b>из Аданы</b>"]],
+26:[["Fikir Kalıpları","<b>Я думаю, что...</b> &nbsp;|&nbsp; <b>По-моему,...</b> = Bence"],
+    ["Katılma","<b>согласен</b> (e) / <b>согласна</b> (k) = katılıyorum"]],
+27:[["Hikaye Sırası","<b>сначала</b> (önce) → <b>потом/затем</b> (sonra) → <b>наконец</b> (sonunda)"]],
+28:[["Hayat Kurtaran 3 Cümle","<b>Я не понимаю</b> &nbsp;|&nbsp; <b>Повторите, пожалуйста</b> &nbsp;|&nbsp; <b>Говорите медленнее</b>"],
+    ["Kelime Sorma","<b>Как сказать ... по-русски?</b> = ... Rusça nasıl denir?"]],
+29:[["Telefon","<b>Алло</b> ile başla, <b>Созвонимся</b> ile bitir."]],
+30:[["Tebrikler!","Buraya kadar geldiysen artık Rusça konuşabiliyorsun. Поздравляю! 🎉"]]
+};
+
 /* ==================== STATE ==================== */
 const KEY='rusca_istasyon_v1';
 let S=null;
@@ -425,7 +507,8 @@ function showBlock(id){
       const bs=S.bolums[bo.id];
       const state=bs&&bs.done?'✅':bs?'📖':'🔒';
       h+=`<div class="row" style="padding:5px 0;border-bottom:1px solid var(--line)"><span>${state}</span><span class="grow">Bölüm ${bo.id} — ${bo.t}</span>`;
-      if(bs&&!bs.done)h+=`<button class="btn" style="padding:5px 12px;font-size:.8rem" onclick="bolumTest(${bo.id})">Mini Test</button>`;
+      h+=`<button class="btn" style="padding:4px 10px;font-size:.78rem" onclick="bolumStudy(${bo.id})">📖 Çalış</button>`;
+      if(bs&&!bs.done)h+=`<button class="btn gold" style="padding:4px 10px;font-size:.78rem" onclick="bolumTest(${bo.id})">Test</button>`;
       h+='</div>';
     });
     h+='</div>';
@@ -433,6 +516,43 @@ function showBlock(id){
   }
   $('blockDetail').innerHTML=h;
 }
+
+/* Bölüm çalışma modu — kelimeler, cümleler, kurallar (sesli) */
+window.bolumStudy=function(id){
+  let bo=null,blk=null;C.blocks.forEach(b=>b.bolums.forEach(x=>{if(x.id===id){bo=x;blk=b}}));
+  const esc=s=>s.replace(/'/g,"\\'");
+  let h=`<span class="tag" style="color:${blk.color}">Bölüm ${id} — ${bo.t}</span>`;
+  // Kurallar
+  if(RULES[id]){
+    h+=`<h3 style="margin:12px 0 6px">📌 Kurallar & İpuçları</h3>`;
+    RULES[id].forEach(r=>{h+=`<div style="background:var(--panel2);border-left:3px solid var(--brass);border-radius:0 10px 10px 0;padding:9px 12px;margin:6px 0">
+      <b style="color:var(--brass);font-size:.85rem">${r[0]}</b><div style="font-size:.88rem;margin-top:3px">${r[1]}</div></div>`});
+  }
+  // Kelimeler
+  h+=`<h3 style="margin:14px 0 6px">📇 Kelimeler <span class="muted" style="font-weight:400;font-size:.8rem">(${bo.v.length})</span></h3>`;
+  h+=`<div class="row" style="margin-bottom:6px"><button class="btn ghost" style="padding:5px 12px;font-size:.8rem" onclick="playAll(${id},'v')">▶ Hepsini Dinle</button></div>`;
+  bo.v.forEach(w=>{h+=`<div class="row" style="padding:6px 0;border-bottom:1px solid var(--line);gap:6px">
+    <button class="btn ghost" style="padding:3px 8px" onclick="speak('${esc(w[0])}')">🔊</button>
+    <span class="grow" style="min-width:120px"><b>${w[0]}</b> <span class="muted" style="font-size:.82rem">${w[1]}</span></span>
+    <span style="color:var(--brass);font-size:.88rem">${w[2]}</span></div>`});
+  // Cümleler
+  h+=`<h3 style="margin:14px 0 6px">💬 Örnek Cümleler</h3>`;
+  h+=`<div class="row" style="margin-bottom:6px"><button class="btn ghost" style="padding:5px 12px;font-size:.8rem" onclick="playAll(${id},'s')">▶ Hepsini Dinle</button></div>`;
+  bo.s.forEach(x=>{h+=`<div style="padding:8px 0;border-bottom:1px solid var(--line)">
+    <div class="row" style="gap:6px"><button class="btn ghost" style="padding:3px 8px" onclick="speak('${esc(x[0])}')">🔊</button><b class="grow">${x[0]}</b></div>
+    <div class="muted" style="padding-left:42px;font-size:.85rem;margin-top:2px">${x[1]}<br><span style="color:var(--brass)">${x[2]}</span></div></div>`});
+  h+=`<div class="row" style="margin-top:14px"><button class="btn gold" onclick="bolumTest(${id})">Teste Geç →</button><button class="btn ghost" onclick="renderHome()">← Kapat</button></div>`;
+  $('blockDetail').innerHTML=h;
+  $('blockDetail').scrollIntoView({behavior:'smooth',block:'start'});
+};
+window.playAll=function(id,type){
+  let bo=null;C.blocks.forEach(b=>b.bolums.forEach(x=>{if(x.id===id)bo=x}));
+  const list=(type==='v'?bo.v:bo.s).map(x=>x[0]);
+  if(!('speechSynthesis' in window))return;
+  speechSynthesis.cancel();
+  list.forEach(t=>{const u=new SpeechSynthesisUtterance(t);u.lang='ru-RU';if(VOICES[0])u.voice=VOICES[0];u.rate=$('slowTts')&&$('slowTts').checked?0.65:0.85;speechSynthesis.speak(u)});
+};
+
 /* bölüm mini testi: 6 soru, 5 doğru → done, sıradaki bölüm açılır */
 window.bolumTest=function(id){
   let bo=null,blk=null;C.blocks.forEach(b=>b.bolums.forEach(x=>{if(x.id===id){bo=x;blk=b}}));
@@ -693,14 +813,27 @@ function dialogSprint(){
 }
 
 /* ==================== EXAM ==================== */
+let examTab='block';
+$('tabBlock').onclick=()=>{examTab='block';renderExam()};
+$('tabCum').onclick=()=>{examTab='cum';renderExam()};
+$('tabWeak').onclick=()=>{examTab='weak';renderExam()};
+
 function renderExam(){
+  document.querySelectorAll('#exam .row .btn').forEach(b=>b.classList.remove('gold'));
+  ({block:$('tabBlock'),cum:$('tabCum'),weak:$('tabWeak')})[examTab].classList.add('gold');
+  if(examTab==='block')return renderBlockExam();
+  if(examTab==='cum')return renderCumExam();
+  return renderWeakExam();
+}
+
+function renderBlockExam(){
   const target=C.blocks.find(b=>S.blocks[b.id].unlocked&&!S.blocks[b.id].exam);
-  if(!target){$('examArea').innerHTML='<div class="card" style="text-align:center">🎉 Açık tüm blokların sınavları geçildi!<br><span class="muted">Yeni bölümleri derste işledikçe ilerle.</span></div>';return}
+  if(!target){$('examArea').innerHTML='<div class="card" style="text-align:center">🎉 Açık tüm blokların sınavları geçildi!<br><span class="muted">Kümülatif sınavla tekrar yapabilirsin.</span></div>';return}
   const notDone=target.bolums.filter(bo=>!(S.bolums[bo.id]&&S.bolums[bo.id].done));
-  if(notDone.length){$('examArea').innerHTML=`<div class="card">📖 <b>Blok ${target.id} — ${target.name}</b> sınavına girmek için önce şu bölümleri tamamla:<br><br>${notDone.map(b=>`• Bölüm ${b.id} — ${b.t}`).join('<br>')}<br><br><span class="muted">Bölümler ders + mini test ile tamamlanır (İstasyon sayfasından).</span></div>`;return}
-  $('examArea').innerHTML=`<div class="card" style="text-align:center"><b>Blok ${target.id} — ${target.name}</b> sınavına hazır mısın?<br><span class="muted">20 soru • %80 geçme notu</span><br><br><button class="btn gold" id="exStart">Sınavı Başlat</button></div>`;
+  if(notDone.length){$('examArea').innerHTML=`<div class="card">📖 <b>Blok ${target.id} — ${target.name}</b> sınavı için önce şunları tamamla:<br><br>${notDone.map(b=>`• Bölüm ${b.id} — ${b.t}`).join('<br>')}<br><br><span class="muted">Her bölümde önce 📖 Çalış, sonra Test.</span></div>`;return}
+  $('examArea').innerHTML=`<div class="card" style="text-align:center"><b>Blok ${target.id} — ${target.name}</b><br><span class="muted">20 soru • %80 geçme notu • Geçersen sonraki hat açılır</span><br><br><button class="btn gold" id="exStart">Sınavı Başlat</button></div>`;
   $('exStart').onclick=()=>{
-    const vocab=allVocab(target.bolums.map(b=>({...b})));
+    const vocab=allVocab(target.bolums);
     const qs=mcqFrom(vocab,Math.min(20,vocab.length),'mix');
     runQuiz($('examArea'),qs,{title:`Blok ${target.id} Sınavı`,pass:Math.ceil(qs.length*.8),
       passMsg:'🎉 Geçtin! Sonraki hat açıldı!',failMsg:'%80 gerekli — kartlara ve drill\'lere dön, sonra tekrar dene.',
@@ -709,6 +842,52 @@ function renderExam(){
         if(nx){S.blocks[nx.id].unlocked=true;S.bolums[nx.bolums[0].id]={done:false}}
         save();renderHome();}}
     });
+  };
+}
+
+/* Kümülatif: öğrenilen TÜM bölümlerden karışık */
+function renderCumExam(){
+  const done=doneBolums();
+  const total=allVocab(done).length;
+  if(total<8){$('examArea').innerHTML='<div class="card" style="text-align:center">Kümülatif sınav için en az birkaç bölüm bitirmen gerek.</div>';return}
+  const blocksTxt=[...new Set(done.map(b=>{let n='';C.blocks.forEach(bl=>bl.bolums.forEach(x=>{if(x.id===b.id)n=bl.id}));return n}))].join(', ');
+  $('examArea').innerHTML=`<div class="card">
+    <b>📚 Kümülatif Sınav</b>
+    <p class="muted" style="margin:6px 0 12px">Şimdiye kadar öğrendiğin <b>her şeyden</b> karışık sorular — bölüm bölüm girmene gerek yok.<br>
+    Havuz: ${done.length} bölüm • ${total} kelime • Blok ${blocksTxt}</p>
+    <div class="row">
+      <button class="btn" data-n="10">Hızlı Tur<br><span class="muted" style="font-size:.75rem">10 soru</span></button>
+      <button class="btn" data-n="25">Standart<br><span class="muted" style="font-size:.75rem">25 soru</span></button>
+      <button class="btn gold" data-n="40">Maraton<br><span class="muted" style="font-size:.75rem">40 soru</span></button>
+    </div>
+    <p class="muted" style="margin-top:10px;font-size:.8rem">💡 Sonuç kaydedilmez, kilit açmaz — saf tekrar amaçlı. İstediğin kadar gir.</p>
+  </div>`;
+  document.querySelectorAll('#examArea .row .btn').forEach(b=>b.onclick=()=>{
+    const n=+b.dataset.n;
+    const vocab=allVocab(done);
+    const qs=mcqFrom(vocab,Math.min(n,vocab.length),'mix');
+    runQuiz($('examArea'),qs,{title:'Kümülatif Sınav',pass:Math.ceil(qs.length*.8),
+      passMsg:'🎉 Harika! Bilgin taze duruyor.',failMsg:'Zayıf yerler var — 🎯 Zayıf Noktalar moduna bak.',
+      onEnd:()=>{}});
+  });
+}
+
+/* Zayıf noktalar: SRS kutusu düşük olan kelimeler */
+function renderWeakExam(){
+  const pool=allVocab(doneBolums());
+  const weak=pool.filter(({w})=>{const b=S.boxes[w[0]];return !b||b.box<=2});
+  if(weak.length<4){$('examArea').innerHTML='<div class="card" style="text-align:center">🎉 Zayıf kelimen kalmamış!<br><span class="muted">Kartlarda çalıştıkça bu liste güncellenir.</span></div>';return}
+  $('examArea').innerHTML=`<div class="card">
+    <b>🎯 Zayıf Noktalar</b>
+    <p class="muted" style="margin:6px 0 12px">Kartlarda zorlandığın kelimeler burada toplanıyor — <b>${weak.length} kelime</b> hedefte.</p>
+    <button class="btn gold" id="wkStart">Zayıf Kelime Turu (${Math.min(20,weak.length)} soru)</button>
+    <p class="muted" style="margin-top:10px;font-size:.8rem">💡 Bu turdaki başarın kart kutularını da günceller.</p>
+  </div>`;
+  $('wkStart').onclick=()=>{
+    const qs=mcqFrom(weak,Math.min(20,weak.length),'mix');
+    runQuiz($('examArea'),qs,{title:'Zayıf Noktalar',pass:Math.ceil(qs.length*.8),
+      passMsg:'🎉 Zayıf noktalar güçleniyor!',failMsg:'Bu kelimeler biraz daha tekrar istiyor.',
+      onEnd:()=>{}});
   };
 }
 
