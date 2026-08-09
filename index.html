@@ -94,6 +94,15 @@ input[type=text]:focus{outline:2px solid var(--brass);border-color:var(--brass)}
 .dots{display:inline-flex;gap:4px;margin-left:8px;vertical-align:middle}
 .dots i{width:8px;height:8px;border-radius:50%;background:var(--line)}
 .dots i.on{background:var(--ok)}
+
+.chipArea{min-height:56px;background:var(--bg);border:2px dashed var(--line);border-radius:12px;padding:10px;display:flex;flex-wrap:wrap;gap:6px;align-content:flex-start;margin:8px 0}
+.chipArea.filled{border-style:solid;border-color:var(--brass)}
+.chip{background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:8px 13px;font-size:1rem;cursor:pointer;transition:.12s;font-family:'Rubik';color:var(--ink)}
+.chip:hover{border-color:var(--brass)}
+.chip:active{transform:scale(.94)}
+.chip.used{opacity:.25;pointer-events:none}
+.chip.ok{background:rgba(78,155,94,.3);border-color:var(--ok)}
+.chip.no{background:rgba(200,80,60,.3);border-color:var(--bad)}
 .warn{background:rgba(210,166,75,.12);border:1px solid var(--brass);border-radius:10px;padding:10px 14px;font-size:.83rem;margin-bottom:12px}
 .res{font-family:'Russo One';font-size:2rem;text-align:center;padding:10px}
 .timer{font-family:'Russo One';color:var(--brass)}
@@ -180,6 +189,7 @@ footer{border-top:1px solid var(--line);padding:14px 0 30px;color:var(--muted);f
     <button class="btn" id="spTrans">Çeviri Sprinti</button>
     <button class="btn" id="spHunt">Hata Avı</button>
     <button class="btn" id="spDialog">Diyalog Tamamlama</button>
+    <button class="btn" id="spBuild">🧩 Cümle Kurma</button>
   </div>
   <div id="sprintArea"></div>
 </section>
@@ -466,6 +476,42 @@ function mcqFrom(vocab,n,dir){/* dir: 'tr2ru' | 'ru2tr' | 'mix' */
   });
 }
 
+
+/* ===== Cümle tabanlı soru üreticileri ===== */
+function sentQuestions(pool,n){
+  const sents=allSent(pool); if(!sents.length)return [];
+  const vocabAll=allVocab(pool);
+  const picked=shuffle(sents).slice(0,n);
+  return picked.map(({x})=>{
+    const kind=Math.random();
+    if(kind<0.45){ /* Rusça cümle → Türkçe anlam */
+      const wrong=shuffle(sents.filter(s=>s.x[0]!==x[0])).slice(0,3).map(s=>s.x[2]);
+      const opts=shuffle([x[2],...wrong]);
+      return {prompt:x[0],translit:null,opts,a:opts.indexOf(x[2]),ru:x[0],type:'s'};
+    } else if(kind<0.75){ /* Türkçe → doğru Rusça cümle */
+      const wrong=shuffle(sents.filter(s=>s.x[0]!==x[0])).slice(0,3).map(s=>s.x[0]);
+      const opts=shuffle([x[0],...wrong]);
+      return {prompt:x[2],translit:null,opts,a:opts.indexOf(x[0]),type:'s'};
+    } else { /* Boşluk doldurma */
+      const words=x[0].split(' ').filter(w=>w.length>2);
+      if(!words.length){const wrong=shuffle(sents.filter(s=>s.x[0]!==x[0])).slice(0,3).map(s=>s.x[2]);const opts=shuffle([x[2],...wrong]);return{prompt:x[0],opts,a:opts.indexOf(x[2]),ru:x[0],type:'s'}}
+      const target=words[Math.floor(Math.random()*words.length)];
+      const blanked=x[0].replace(target,'<span style="color:var(--brass)">_____</span>');
+      const clean=target.replace(/[.,!?]/g,'');
+      const wrong=shuffle(vocabAll.map(v=>v.w[0]).filter(w=>w!==clean&&w.split(' ').length===1)).slice(0,3);
+      const opts=shuffle([clean,...wrong]);
+      return {prompt:blanked+`<div class="muted" style="font-size:.85rem;margin-top:6px">${x[2]}</div>`,opts,a:opts.indexOf(clean),ru:x[0],type:'s'};
+    }
+  });
+}
+/* Kelime + cümle karışık havuz */
+function mixedQuestions(pool,n){
+  const nS=Math.round(n*0.5), nV=n-nS;
+  const vq=mcqFrom(allVocab(pool),nV,'mix');
+  const sq=sentQuestions(pool,nS);
+  return shuffle([...vq,...sq]);
+}
+
 /* ==================== NAV ==================== */
 document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>go(b.dataset.s));
 document.querySelectorAll('.mod').forEach(m=>m.onclick=()=>go(m.dataset.go));
@@ -473,7 +519,7 @@ function go(s){
   document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('act',b.dataset.s===s));
   document.querySelectorAll('section').forEach(x=>x.classList.toggle('show',x.id===s));
   if(s==='home')renderHome();if(s==='cards')startCards();if(s==='listen')$('listenArea').innerHTML='<p class="muted">Yukarıdan mod seç.</p>';
-  if(s==='read')startRead();if(s==='errors')renderErrors();if(s==='sprint')$('sprintArea').innerHTML='<p class="muted">Yukarıdan sprint seç.</p>';
+  if(s==='read')startRead();if(s==='errors')renderErrors();if(s==='sprint')$('sprintArea').innerHTML='<p class="muted">Yukarıdan sprint seç. 🧩 Cümle Kurma en zorlayıcı olanı — yapıyı sen kuruyorsun.</p>';
   if(s==='exam')renderExam();
   window.scrollTo(0,0);
 }
@@ -812,6 +858,79 @@ function dialogSprint(){
   runQuiz($('sprintArea'),qs,{title:'Diyalog Tamamlama',pass:Math.ceil(qs.length*.7)});
 }
 
+
+/* ===== Cümle Kurma (chip dizme) ===== */
+$('spBuild').onclick=()=>buildSprint();
+function buildSprint(){
+  const pool=doneBolums();
+  const sents=shuffle(allSent(pool)).filter(s=>s.x[0].split(' ').length>=3).slice(0,10);
+  if(!sents.length){$('sprintArea').innerHTML='<div class="card" style="text-align:center">Yeterli cümle yok — birkaç bölüm daha bitir.</div>';return}
+  const vocabAll=allVocab(pool).map(v=>v.w[0]).filter(w=>w.split(' ').length===1);
+  let i=0,score=0;
+  function show(){
+    if(i>=sents.length){
+      $('sprintArea').innerHTML=`<div class="res" style="color:${score>=sents.length*0.7?'var(--ok)':'var(--bad)'}">${score}/${sents.length}</div><p style="text-align:center">Cümle kurma turu bitti!</p>
+      <div class="row" style="justify-content:center;margin-top:10px"><button class="btn gold" onclick="buildSprint()">Tekrar</button></div>`;
+      touchStreak();$('stCount').textContent=S.streak.count;return}
+    const {x}=sents[i];
+    const correct=x[0].replace(/[.!?]$/,'').split(' ');
+    /* çeldiriciler: benzer kelimelerin farklı halleri + havuzdan rastgele */
+    const distractors=shuffle(vocabAll.filter(w=>!correct.includes(w))).slice(0,Math.min(3,Math.max(2,Math.floor(correct.length/2))));
+    const chips=shuffle([...correct,...distractors]);
+    let picked=[];
+    $('sprintArea').innerHTML=`<div class="tag">Cümle Kurma • ${i+1}/${sents.length}</div>
+    <div class="card">
+      <p class="muted">Bu cümleyi Rusça kur:</p>
+      <div class="bigru" style="font-size:1.1rem;padding:8px">${x[2]}</div>
+      <div class="chipArea" id="ansArea"></div>
+      <div class="row" id="bank" style="justify-content:center"></div>
+      <div class="row" style="justify-content:center;margin-top:12px">
+        <button class="btn ghost" id="clrB">↺ Temizle</button>
+        <button class="btn gold" id="chkB">Kontrol Et</button>
+        <button class="btn ghost" id="skipB">Bilmiyorum</button>
+      </div>
+      <div id="bRes" style="margin-top:10px"></div>
+    </div>`;
+    const bank=$('bank'),ans=$('ansArea');
+    chips.forEach((w,idx)=>{
+      const b=document.createElement('button');b.className='chip';b.textContent=w;b.dataset.i=idx;
+      b.onclick=()=>{if(b.classList.contains('used'))return;b.classList.add('used');picked.push({w,el:b});draw()};
+      bank.appendChild(b);
+    });
+    function draw(){
+      ans.innerHTML='';ans.classList.toggle('filled',picked.length>0);
+      picked.forEach((p,k)=>{
+        const b=document.createElement('button');b.className='chip';b.textContent=p.w;
+        b.onclick=()=>{p.el.classList.remove('used');picked.splice(k,1);draw()};
+        ans.appendChild(b);
+      });
+    }
+    $('clrB').onclick=()=>{picked.forEach(p=>p.el.classList.remove('used'));picked=[];draw()};
+    $('skipB').onclick=()=>reveal(false);
+    $('chkB').onclick=()=>{
+      if(!picked.length)return;
+      const user=picked.map(p=>p.w).join(' ');
+      const ok=norm(user)===norm(correct.join(' '));
+      /* renklendir */
+      Array.from(ans.children).forEach((el,k)=>{el.classList.add(picked[k].w===correct[k]?'ok':'no')});
+      reveal(ok);
+    };
+    function reveal(ok){
+      document.querySelectorAll('#bank .chip').forEach(b=>b.classList.add('used'));
+      $('chkB').disabled=true;$('clrB').disabled=true;$('skipB').disabled=true;
+      if(ok)score++;
+      $('bRes').innerHTML=`${ok?'<p style="color:var(--ok);text-align:center;font-weight:600">✅ Doğru!</p>':`<p style="text-align:center;color:var(--bad);font-weight:600">Doğrusu:</p><div class="bigru" style="font-size:1.05rem;color:var(--ok)">${x[0]}</div>`}
+      <div class="muted" style="text-align:center;font-size:.85rem">${x[1]}</div>
+      <div class="row" style="justify-content:center;margin-top:10px">
+        <button class="btn ghost" onclick="speak('${x[0].replace(/'/g,"\\'")}')">🔊 Dinle</button>
+        <button class="btn ok" id="nxB">Sıradaki →</button></div>
+      ${ok?'':'<p class="muted" style="text-align:center;font-size:.78rem;margin-top:8px">Not: Rusçada bazen birden fazla doğru sıra olabilir.</p>'}`;
+      $('nxB').onclick=()=>{i++;show()};
+    }
+  }
+  show();
+}
+
 /* ==================== EXAM ==================== */
 let examTab='block';
 $('tabBlock').onclick=()=>{examTab='block';renderExam()};
@@ -833,8 +952,7 @@ function renderBlockExam(){
   if(notDone.length){$('examArea').innerHTML=`<div class="card">📖 <b>Blok ${target.id} — ${target.name}</b> sınavı için önce şunları tamamla:<br><br>${notDone.map(b=>`• Bölüm ${b.id} — ${b.t}`).join('<br>')}<br><br><span class="muted">Her bölümde önce 📖 Çalış, sonra Test.</span></div>`;return}
   $('examArea').innerHTML=`<div class="card" style="text-align:center"><b>Blok ${target.id} — ${target.name}</b><br><span class="muted">20 soru • %80 geçme notu • Geçersen sonraki hat açılır</span><br><br><button class="btn gold" id="exStart">Sınavı Başlat</button></div>`;
   $('exStart').onclick=()=>{
-    const vocab=allVocab(target.bolums);
-    const qs=mcqFrom(vocab,Math.min(20,vocab.length),'mix');
+    const qs=mixedQuestions(target.bolums,20);
     runQuiz($('examArea'),qs,{title:`Blok ${target.id} Sınavı`,pass:Math.ceil(qs.length*.8),
       passMsg:'🎉 Geçtin! Sonraki hat açıldı!',failMsg:'%80 gerekli — kartlara ve drill\'lere dön, sonra tekrar dene.',
       onEnd:(sc,tt,pass)=>{if(pass){S.blocks[target.id].exam=true;
@@ -854,7 +972,7 @@ function renderCumExam(){
   $('examArea').innerHTML=`<div class="card">
     <b>📚 Kümülatif Sınav</b>
     <p class="muted" style="margin:6px 0 12px">Şimdiye kadar öğrendiğin <b>her şeyden</b> karışık sorular — bölüm bölüm girmene gerek yok.<br>
-    Havuz: ${done.length} bölüm • ${total} kelime • Blok ${blocksTxt}</p>
+    Havuz: ${done.length} bölüm • ${total} kelime • Blok ${blocksTxt}<br>Sorular: <b>%50 kelime + %50 cümle</b> (çeviri, boşluk doldurma)</p>
     <div class="row">
       <button class="btn" data-n="10">Hızlı Tur<br><span class="muted" style="font-size:.75rem">10 soru</span></button>
       <button class="btn" data-n="25">Standart<br><span class="muted" style="font-size:.75rem">25 soru</span></button>
@@ -864,8 +982,7 @@ function renderCumExam(){
   </div>`;
   document.querySelectorAll('#examArea .row .btn').forEach(b=>b.onclick=()=>{
     const n=+b.dataset.n;
-    const vocab=allVocab(done);
-    const qs=mcqFrom(vocab,Math.min(n,vocab.length),'mix');
+    const qs=mixedQuestions(done,n);
     runQuiz($('examArea'),qs,{title:'Kümülatif Sınav',pass:Math.ceil(qs.length*.8),
       passMsg:'🎉 Harika! Bilgin taze duruyor.',failMsg:'Zayıf yerler var — 🎯 Zayıf Noktalar moduna bak.',
       onEnd:()=>{}});
