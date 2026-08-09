@@ -423,7 +423,7 @@ const KEY='rusca_istasyon_v1';
 let S=null;
 const today=()=>new Date().toISOString().slice(0,10);
 function defState(){
-  const st={streak:{count:1,last:today()},boxes:{},errors:{},customErrors:[],
+  const st={streak:{count:1,last:today()},boxes:{},sentBoxes:{},errors:{},customErrors:[],
     blocks:{1:{unlocked:true,exam:true},2:{unlocked:true,exam:false},3:{unlocked:false,exam:false},4:{unlocked:false,exam:false},5:{unlocked:false,exam:false},6:{unlocked:false,exam:false}},
     bolums:{}};
   [1,2,3,4,5,6].forEach(b=>st.bolums[b]={done:true});
@@ -437,6 +437,7 @@ async function load(){
     if(hasClaudeStore){const r=await window.storage.get(KEY);S=r&&r.value?JSON.parse(r.value):defState();}
     else{const r=localStorage.getItem(KEY);S=r?JSON.parse(r):defState();}
   }catch(e){S=defState();}
+  if(!S.sentBoxes)S.sentBoxes={};
   touchStreak();render();
 }
 let saveT=null;
@@ -477,30 +478,76 @@ function mcqFrom(vocab,n,dir){/* dir: 'tr2ru' | 'ru2tr' | 'mix' */
 }
 
 
+
+/* ===== Cümle SRS (Leitner) ===== */
+function sentDue(pool){
+  const t=today(), all=allSent(pool);
+  const due=all.filter(({x})=>{const b=S.sentBoxes[x[0]];return !b||b.due<=t});
+  return {all,due};
+}
+function gradeSent(ru,ok){
+  const cur=S.sentBoxes[ru]||{box:1};
+  const box=ok?Math.min(4,cur.box+1):1;
+  const add=[0,1,3,7][box-1]??7;
+  const d=new Date();d.setDate(d.getDate()+(ok?add:0));
+  S.sentBoxes[ru]={box,due:d.toISOString().slice(0,10)};save();
+}
+/* Vadesi gelen cümleler önce, kalanı rastgele doldur */
+function pickSents(pool,n,minWords){
+  const {all,due}=sentDue(pool);
+  const f=s=>!minWords||s.x[0].split(' ').length>=minWords;
+  const d=shuffle(due.filter(f)), rest=shuffle(all.filter(s=>f(s)&&!d.includes(s)));
+  return [...d,...rest].slice(0,n);
+}
+/* Hata defterindeki kalıplarla ilgili akıllı çeldiriciler */
+const CONFUSE=[
+ ["иду","еду","ходил","ездил"],["в","на","из","с"],["меня","мне","мной"],
+ ["моя","мой","мои","моё"],["живу","живёт","живут","живёшь"],
+ ["работаю","работает","работать","работаешь"],["час","часа","часов"],
+ ["год","года","лет"],["утром","утра","вечером","вечера"],
+ ["есть","нет","был","была"],["хочу","хочешь","хочет","хотим"],
+ ["просыпаюсь","просыпается","просыпаться"],["ложусь","ложится","ложиться"],
+ ["домой","дома","дом"],["до","с","от","по"]
+];
+function smartDistractors(correctWords,vocabAll,k){
+  const out=[];
+  correctWords.forEach(w=>{
+    const clean=w.replace(/[.,!?]/g,'').toLowerCase();
+    const grp=CONFUSE.find(g=>g.includes(clean));
+    if(grp)grp.forEach(alt=>{if(alt!==clean&&!correctWords.map(x=>x.toLowerCase()).includes(alt)&&!out.includes(alt))out.push(alt)});
+  });
+  const smart=shuffle(out).slice(0,k);
+  if(smart.length<k){
+    const filler=shuffle(vocabAll.filter(w=>!correctWords.includes(w)&&!smart.includes(w))).slice(0,k-smart.length);
+    return [...smart,...filler];
+  }
+  return smart;
+}
+
 /* ===== Cümle tabanlı soru üreticileri ===== */
 function sentQuestions(pool,n){
   const sents=allSent(pool); if(!sents.length)return [];
   const vocabAll=allVocab(pool);
-  const picked=shuffle(sents).slice(0,n);
+  const picked=pickSents(pool,n,0);
   return picked.map(({x})=>{
     const kind=Math.random();
     if(kind<0.45){ /* Rusça cümle → Türkçe anlam */
       const wrong=shuffle(sents.filter(s=>s.x[0]!==x[0])).slice(0,3).map(s=>s.x[2]);
       const opts=shuffle([x[2],...wrong]);
-      return {prompt:x[0],translit:null,opts,a:opts.indexOf(x[2]),ru:x[0],type:'s'};
+      return {prompt:x[0],translit:null,opts,a:opts.indexOf(x[2]),ru:x[0],type:'s',srcRu:x[0]};
     } else if(kind<0.75){ /* Türkçe → doğru Rusça cümle */
       const wrong=shuffle(sents.filter(s=>s.x[0]!==x[0])).slice(0,3).map(s=>s.x[0]);
       const opts=shuffle([x[0],...wrong]);
-      return {prompt:x[2],translit:null,opts,a:opts.indexOf(x[0]),type:'s'};
+      return {prompt:x[2],translit:null,opts,a:opts.indexOf(x[0]),type:'s',srcRu:x[0]};
     } else { /* Boşluk doldurma */
       const words=x[0].split(' ').filter(w=>w.length>2);
       if(!words.length){const wrong=shuffle(sents.filter(s=>s.x[0]!==x[0])).slice(0,3).map(s=>s.x[2]);const opts=shuffle([x[2],...wrong]);return{prompt:x[0],opts,a:opts.indexOf(x[2]),ru:x[0],type:'s'}}
       const target=words[Math.floor(Math.random()*words.length)];
       const blanked=x[0].replace(target,'<span style="color:var(--brass)">_____</span>');
       const clean=target.replace(/[.,!?]/g,'');
-      const wrong=shuffle(vocabAll.map(v=>v.w[0]).filter(w=>w!==clean&&w.split(' ').length===1)).slice(0,3);
+      const wrong=smartDistractors([clean],vocabAll.map(v=>v.w[0]).filter(w=>w.split(' ').length===1),3);
       const opts=shuffle([clean,...wrong]);
-      return {prompt:blanked+`<div class="muted" style="font-size:.85rem;margin-top:6px">${x[2]}</div>`,opts,a:opts.indexOf(clean),ru:x[0],type:'s'};
+      return {prompt:blanked+`<div class="muted" style="font-size:.85rem;margin-top:6px">${x[2]}</div>`,opts,a:opts.indexOf(clean),ru:x[0],type:'s',srcRu:x[0]};
     }
   });
 }
@@ -635,9 +682,11 @@ function runQuiz(container,qs,cfg){
     container.querySelectorAll('.opt').forEach(btn=>btn.onclick=()=>{
       const j=+btn.dataset.j;
       container.querySelectorAll('.opt').forEach(b=>b.disabled=true);
-      if(j===q.a){btn.classList.add('right');score++}
+      const correct=(j===q.a);
+      if(correct){btn.classList.add('right');score++}
       else{btn.classList.add('wrong');container.querySelectorAll('.opt')[q.a].classList.add('right')}
-      setTimeout(()=>{i++;step()},j===q.a?600:1500);
+      if(q.srcRu)gradeSent(q.srcRu,correct);
+      setTimeout(()=>{i++;step()},correct?600:1500);
     });
   }
   step();
@@ -863,7 +912,7 @@ function dialogSprint(){
 $('spBuild').onclick=()=>buildSprint();
 function buildSprint(){
   const pool=doneBolums();
-  const sents=shuffle(allSent(pool)).filter(s=>s.x[0].split(' ').length>=3).slice(0,10);
+  const sents=pickSents(pool,10,3);
   if(!sents.length){$('sprintArea').innerHTML='<div class="card" style="text-align:center">Yeterli cümle yok — birkaç bölüm daha bitir.</div>';return}
   const vocabAll=allVocab(pool).map(v=>v.w[0]).filter(w=>w.split(' ').length===1);
   let i=0,score=0;
@@ -875,10 +924,12 @@ function buildSprint(){
     const {x}=sents[i];
     const correct=x[0].replace(/[.!?]$/,'').split(' ');
     /* çeldiriciler: benzer kelimelerin farklı halleri + havuzdan rastgele */
-    const distractors=shuffle(vocabAll.filter(w=>!correct.includes(w))).slice(0,Math.min(3,Math.max(2,Math.floor(correct.length/2))));
+    const nD=Math.min(3,Math.max(2,Math.floor(correct.length/2)));
+    const distractors=smartDistractors(correct,vocabAll,nD);
     const chips=shuffle([...correct,...distractors]);
     let picked=[];
-    $('sprintArea').innerHTML=`<div class="tag">Cümle Kurma • ${i+1}/${sents.length}</div>
+    const bx=(S.sentBoxes[x[0]]||{box:1}).box;
+    $('sprintArea').innerHTML=`<div class="tag">Cümle Kurma • ${i+1}/${sents.length} • ${['🔴 yeni/zayıf','🟠 tanıdık','🟡 iyi','🟢 sağlam'][bx-1]}</div>
     <div class="card">
       <p class="muted">Bu cümleyi Rusça kur:</p>
       <div class="bigru" style="font-size:1.1rem;padding:8px">${x[2]}</div>
@@ -919,6 +970,7 @@ function buildSprint(){
       document.querySelectorAll('#bank .chip').forEach(b=>b.classList.add('used'));
       $('chkB').disabled=true;$('clrB').disabled=true;$('skipB').disabled=true;
       if(ok)score++;
+      gradeSent(x[0],ok);
       $('bRes').innerHTML=`${ok?'<p style="color:var(--ok);text-align:center;font-weight:600">✅ Doğru!</p>':`<p style="text-align:center;color:var(--bad);font-weight:600">Doğrusu:</p><div class="bigru" style="font-size:1.05rem;color:var(--ok)">${x[0]}</div>`}
       <div class="muted" style="text-align:center;font-size:.85rem">${x[1]}</div>
       <div class="row" style="justify-content:center;margin-top:10px">
@@ -991,24 +1043,31 @@ function renderCumExam(){
 
 /* Zayıf noktalar: SRS kutusu düşük olan kelimeler */
 function renderWeakExam(){
-  const pool=allVocab(doneBolums());
-  const weak=pool.filter(({w})=>{const b=S.boxes[w[0]];return !b||b.box<=2});
-  if(weak.length<4){$('examArea').innerHTML='<div class="card" style="text-align:center">🎉 Zayıf kelimen kalmamış!<br><span class="muted">Kartlarda çalıştıkça bu liste güncellenir.</span></div>';return}
+  const pool=doneBolums();
+  const weakV=allVocab(pool).filter(({w})=>{const b=S.boxes[w[0]];return !b||b.box<=2});
+  const weakS=allSent(pool).filter(({x})=>{const b=S.sentBoxes[x[0]];return b&&b.box<=2});
+  if(weakV.length<4&&weakS.length<2){$('examArea').innerHTML='<div class="card" style="text-align:center">🎉 Zayıf noktan kalmamış!<br><span class="muted">Kartlarda ve cümle kurmada çalıştıkça bu liste güncellenir.</span></div>';return}
   $('examArea').innerHTML=`<div class="card">
     <b>🎯 Zayıf Noktalar</b>
-    <p class="muted" style="margin:6px 0 12px">Kartlarda zorlandığın kelimeler burada toplanıyor — <b>${weak.length} kelime</b> hedefte.</p>
-    <button class="btn gold" id="wkStart">Zayıf Kelime Turu (${Math.min(20,weak.length)} soru)</button>
-    <p class="muted" style="margin-top:10px;font-size:.8rem">💡 Bu turdaki başarın kart kutularını da günceller.</p>
+    <p class="muted" style="margin:6px 0 12px">Zorlandığın malzeme burada toplanıyor:<br>
+    • <b>${weakV.length}</b> kelime &nbsp;•&nbsp; <b>${weakS.length}</b> cümle</p>
+    <div class="row">
+      <button class="btn gold" id="wkMix">Karışık Tur (${Math.min(20,weakV.length+weakS.length)} soru)</button>
+      ${weakS.length>=3?'<button class="btn" id="wkBuild">🧩 Zayıf Cümleleri Kur</button>':''}
+    </div>
+    <p class="muted" style="margin-top:10px;font-size:.8rem">💡 Buradaki başarın kart ve cümle kutularını günceller.</p>
   </div>`;
-  $('wkStart').onclick=()=>{
-    const qs=mcqFrom(weak,Math.min(20,weak.length),'mix');
+  $('wkMix').onclick=()=>{
+    const vq=mcqFrom(weakV.length?weakV:allVocab(pool),Math.min(12,Math.max(4,weakV.length)),'mix');
+    const sq=weakS.length?sentQuestions(pool,Math.min(8,weakS.length)):[];
+    const qs=shuffle([...vq,...sq]).slice(0,20);
     runQuiz($('examArea'),qs,{title:'Zayıf Noktalar',pass:Math.ceil(qs.length*.8),
-      passMsg:'🎉 Zayıf noktalar güçleniyor!',failMsg:'Bu kelimeler biraz daha tekrar istiyor.',
-      onEnd:()=>{}});
+      passMsg:'🎉 Zayıf noktalar güçleniyor!',failMsg:'Bu malzeme biraz daha tekrar istiyor.',onEnd:()=>{}});
   };
+  if($('wkBuild'))$('wkBuild').onclick=()=>{go('sprint');buildSprint()};
 }
 
-/* init */
+
 load();
 </script>
 </body>
