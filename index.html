@@ -16,7 +16,7 @@
 :root{
   --bg:#14181F; --panel:#1D2430; --panel2:#232C3A; --line:#2C3646;
   --ink:#F0EBE0; --muted:#8C95A6; --brass:#D2A64B;
-  --b1:#4A7FB5; --b2:#4E9B5E; --b3:#C9B23D; --b4:#D07B3A; --b5:#C8503C; --b6:#8E6BB0;
+  --b1:#4A7FB5; --b2:#4E9B5E; --b3:#C9B23D; --b4:#D07B3A; --b5:#C8503C; --b6:#8E6BB0; --b7:#8A6A4F; --b8:#5B7C8D;
   --ok:#4E9B5E; --bad:#C8503C;
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -205,7 +205,7 @@ footer{border-top:1px solid var(--line);padding:14px 0 30px;color:var(--muted);f
   <div id="examArea"></div>
 </section>
 
-<footer>Rusça Antrenman İstasyonu • ders ilerlemesiyle senkron • konuşma pratiği için Claude'a dön</footer>
+<footer>Rusça Antrenman İstasyonu • 8 blok / 40 bölüm • A1 → B1+ • konuşma pratiği için Claude'a dön</footer>
 </div>
 
 <script>
@@ -217,16 +217,16 @@ const C={blocks:[
   s:[["Я инженер.","ya injener","Ben mühendisim."],["Он доктор.","on doktar","O doktor."],["Она студентка.","ana studyentka","O öğrenci (k)."]]},
  {id:2,t:"Это + мой/моя",v:[["мой","moy","benim (e)"],["моя","maya","benim (k)"],["твой","tvoy","senin (e)"],["твоя","tvaya","senin (k)"],["да","da","evet"],["нет","nyet","hayır"],["суп","sup","çorba"],["пицца","pitsa","pizza"],["вода","vada","su"]],
   s:[["Это мой суп.","eta moy sup","Bu benim çorbam."],["Это твоя пицца?","eta tvaya pitsa","Bu senin pizzan mı?"],["Да, это моя пицца.","da, eta maya pitsa","Evet, bu benim pizzam."]]},
- {id:3,t:"Milliyet + Arkadaş",v:[["турок","turok","Türk (e)"],["турчанка","turçanka","Türk (k)"],["русский","russkiy","Rus (e)"],["русская","russkaya","Rus (k)"],["американец","amerikanets","Amerikalı (e)"],["американка","amerikanka","Amerikalı (k)"],["друг","drug","erkek arkadaş"],["подруга","padruga","kız arkadaş"]],
-  s:[["Я турок.","ya turok","Ben Türküm."],["Это мой друг. Он русский.","eta moy drug. on russkiy","Bu arkadaşım. O Rus."],["Моя подруга американка.","maya padruga amerikanka","Kız arkadaşım Amerikalı."]]},
+ {id:3,t:"Milliyet + Arkadaş",v:[["турок","turok","Türk (e)"],["турчанка","turçanka","Türk (k)"],["русский","russkiy","Rus (e)"],["русская","russkaya","Rus (k)"],["американец","amerikanets","Amerikalı (e)"],["американка","amerikanka","Amerikalı (k)"],["друг","drug","erkek arkadaş"],["подруга","padruga","kız arkadaş"],["мастер","master","tamirci, usta"],["электрик","elektrik","elektrikçi"],["водопроводчик","vadapravodçik","tesisatçı"],["программист","pragramist","yazılımcı"],["охранник","ahrannik","güvenlikçi"],["курьер","kuryer","kurye"]],
+  s:[["Я турок.","ya turok","Ben Türküm."],["Это мой друг. Он русский.","eta moy drug. on russkiy","Bu arkadaşım. O Rus."],["Моя подруга американка.","maya padruga amerikanka","Kız arkadaşım Amerikalı."],["Мне нужен электрик.","mnye nujen elektrik","Bana elektrikçi lazım."],["Наш электрик нашёл проблему.","naş elektrik naşol prablyemu","Elektrikçimiz sorunu buldu."]]},
  {id:4,t:"Selamlaşma + Tanışma",v:[["привет","privyet","merhaba (samimi)"],["здравствуйте","zdrastvuytye","merhaba (resmi)"],["пока","paka","hoşça kal"],["меня зовут","menya zavut","benim adım"],["откуда","atkuda","nereden"],["я из","ya iz","ben ...danım"],["очень приятно","oçen priyatna","çok memnun oldum"],["спасибо","spasiba","teşekkürler"],["пожалуйста","pajalusta","rica ederim"],["по работе","pa rabotye","iş için"]],
   s:[["Здравствуйте! Меня зовут Али.","zdrastvuytye! menya zavut Ali","Merhaba! Adım Ali."],["Я из Аданы.","ya iz Adanı","Adanalıyım."],["Я здесь по работе.","ya zdyes pa rabotye","Burada iş için bulunuyorum."]]},
  {id:5,t:"Yaş + Sayılar",v:[["сколько тебе лет?","skolka tebe lyet","kaç yaşındasın?"],["мне ... лет","mnye ... lyet","ben ... yaşındayım"],["один","adin","1"],["два","dva","2"],["три","tri","3"],["пять","pyat","5"],["десять","dyesyat","10"],["двадцать","dvatsat","20"],["тридцать","tridtsat","30"],["сто","sto","100"],["женат","jenat","evli (e)"]],
   s:[["Мне двадцать четыре года.","mnye dvatsat çetırye goda","24 yaşındayım."],["Сколько тебе лет?","skolka tebe lyet","Kaç yaşındasın?"],["Я не женат.","ya nye jenat","Evli değilim."]]}
 ]},
 {id:2,name:"Günlük Hayat",color:"var(--b2)",bolums:[
- {id:6,t:"Aile",v:[["брат","brat","erkek kardeş"],["сестра","syestra","kız kardeş"],["муж","muş","koca"],["жена","jena","karı"],["сын","sın","oğul"],["дочь","doç","kız evlat"],["родители","raditeli","ebeveynler"],["семья","syemya","aile"],["у меня есть","u menya yest","benim ... var"],["у меня нет","u menya nyet","benim ... yok"],["старше","starşe","daha büyük (yaş)"],["младше","mlatşe","daha küçük (yaş)"]],
-  s:[["У меня есть брат и сестра.","u menya yest brat i syestra","Kardeşlerim var."],["Мой брат старше меня.","moy brat starşe menya","Kardeşim benden büyük."],["Мои родители живут в Хатае.","mai raditeli jivut v Hataye","Ailem Hatay'da yaşıyor."]]},
+ {id:6,t:"Aile",v:[["брат","brat","erkek kardeş"],["сестра","syestra","kız kardeş"],["муж","muş","koca"],["жена","jena","karı"],["сын","sın","oğul"],["дочь","doç","kız evlat"],["родители","raditeli","ebeveynler"],["семья","syemya","aile"],["у меня есть","u menya yest","benim ... var"],["у меня нет","u menya nyet","benim ... yok"],["старше","starşe","daha büyük (yaş)"],["младше","mlatşe","daha küçük (yaş)"],["чей / чья / чьё","çey / çya / çyo","kimin? (e/k/n)"],["отец","atyets","baba (resmi)"],["Сашина машина","saşina maşina","Sasha'nın arabası"],["Наташин свитер","nataşin svitir","Nataşa'nın kazağı"]],
+  s:[["У меня есть брат и сестра.","u menya yest brat i syestra","Kardeşlerim var."],["Мой брат старше меня.","moy brat starşe menya","Kardeşim benden büyük."],["Мои родители живут в Хатае.","mai raditeli jivut v Hataye","Ailem Hatay'da yaşıyor."],["Чья это пицца? Моя!","çya eta pitsa? maya","Bu kimin pizzası? Benim!"],["Чей это подарок?","çey eta padarak","Bu kimin hediyesi?"],["Я не знаю, чья она.","ya nye znayu, çya ana","Kimin olduğunu bilmiyorum."]]},
  {id:7,t:"Nerede Yaşıyorsun",v:[["жить","jit","yaşamak"],["я живу","ya jivu","yaşıyorum"],["ты живёшь","tı jivyoş","yaşıyorsun"],["он живёт","on jivyot","yaşıyor"],["квартира","kvartira","daire"],["дом","dom","ev"],["город","gorat","şehir"],["центр","tsentr","merkez"],["район","rayon","semt, bölge"]],
   s:[["Я живу в Адане.","ya jivu v Adane","Adana'da yaşıyorum."],["Ты где живёшь?","tı gdye jivyoş","Nerede yaşıyorsun?"],["Моя квартира в центре.","maya kvartira v tsentre","Dairem merkezde."]]},
  {id:8,t:"Temel Fiiller",v:[["работать","rabotat","çalışmak"],["я работаю","ya rabotayu","çalışıyorum"],["ты работаешь","tı rabotayeş","çalışıyorsun"],["говорить","gavarit","konuşmak"],["я говорю","ya gavaryu","konuşuyorum"],["понимать","panimat","anlamak"],["я понимаю","ya panimayu","anlıyorum"],["знать","znat","bilmek"],["я знаю","ya znayu","biliyorum"],["изучать","izuçat","öğrenmek"]],
@@ -237,10 +237,10 @@ const C={blocks:[
   s:[["Во сколько ты просыпаешься?","va skolka tı prosıpayeşsya","Saat kaçta uyanıyorsun?"],["Я работаю до пяти.","ya rabotayu da pyati","Beşe kadar çalışıyorum."],["Сейчас три часа.","syeyças tri çasa","Şimdi saat üç."]]}
 ]},
 {id:3,name:"Şehirde Yaşam",color:"var(--b3)",bolums:[
- {id:11,t:"Ulaşım",v:[["автобус","avtobus","otobüs"],["метро","myetro","metro"],["машина","maşina","araba"],["такси","taksi","taksi"],["поезд","poyezd","tren"],["на автобусе","na avtobuse","otobüsle"],["пешком","peşkom","yürüyerek"],["остановка","astanovka","durak"]],
-  s:[["Я еду на метро.","ya yedu na myetro","Metroyla gidiyorum."],["Где остановка?","gdye astanovka","Durak nerede?"],["Я иду пешком.","ya idu peşkom","Yürüyerek gidiyorum."]]},
- {id:12,t:"Şehirdeki Yerler",v:[["магазин","magazin","mağaza, dükkan"],["ресторан","restoran","restoran"],["кафе","kafe","kafe"],["парк","park","park"],["банк","bank","banka"],["аптека","aptyeka","eczane"],["больница","balnitsa","hastane"],["рынок","rınak","pazar"],["улица","ulitsa","cadde, sokak"]],
-  s:[["Где банк?","gdye bank","Banka nerede?"],["Аптека на этой улице.","aptyeka na etay ulitse","Eczane bu caddede."],["Я в парке.","ya v parke","Parktayım."]]},
+ {id:11,t:"Ulaşım",v:[["автобус","avtobus","otobüs"],["метро","myetro","metro"],["машина","maşina","araba"],["такси","taksi","taksi"],["поезд","poyezd","tren"],["на автобусе","na avtobuse","otobüsle"],["пешком","peşkom","yürüyerek"],["остановка","astanovka","durak"],["куда","kuda","nereye"],["через","çyeryez","...sonra / karşıdan"],["стоянка","stayanka","otopark"],["Ты куда?","tı kuda","Nereye gidiyorsun?"]],
+  s:[["Я еду на метро.","ya yedu na myetro","Metroyla gidiyorum."],["Где остановка?","gdye astanovka","Durak nerede?"],["Я иду пешком.","ya idu peşkom","Yürüyerek gidiyorum."],["Куда она идёт?","kuda ana idyot","O nereye gidiyor?"],["Я перезвоню через час.","ya peryezvanyu çyeryez ças","Bir saat sonra geri ararım."],["Есть машины на стоянке.","yest maşinı na stayanke","Otoparkta arabalar var."]]},
+ {id:12,t:"Şehirdeki Yerler",v:[["магазин","magazin","mağaza, dükkan"],["ресторан","restoran","restoran"],["кафе","kafe","kafe"],["парк","park","park"],["банк","bank","banka"],["аптека","aptyeka","eczane"],["больница","balnitsa","hastane"],["рынок","rınak","pazar"],["улица","ulitsa","cadde, sokak"],["возле","vozle","yanında, yakınında"],["там / здесь","tam / zdyes","orada / burada"],["стоит","stait","duruyor (dikey)"],["лежит","lejit","duruyor (yatay)"],["на улице","na ulitse","dışarıda"],["квартира","kvartira","daire"]],
+  s:[["Где банк?","gdye bank","Banka nerede?"],["Аптека на этой улице.","aptyeka na etay ulitse","Eczane bu caddede."],["Я в парке.","ya v parke","Parktayım."],["Возле роддома есть школа.","vozle raddoma yest şkola","Doğumevinin yanında okul var."],["Твоя чашка стоит на столе.","tvaya çaşka stait na stalye","Bardağın masada duruyor."],["Кто там? — Я здесь!","kto tam? ya zdyes","Kim var orada? — Buradayım!"]]},
  {id:13,t:"Yemek Söyleme",v:[["меню","menü","menü"],["хочу","haçu","istiyorum"],["можно","mojna","olur mu / mümkün"],["чай","çay","çay"],["кофе","kofe","kahve"],["мясо","myasa","et"],["рыба","rıba","balık"],["салат","salat","salata"],["счёт","şşot","hesap"],["вкусно","fkusna","lezzetli"]],
   s:[["Можно меню, пожалуйста?","mojna menü, pajalusta","Menü alabilir miyim?"],["Я хочу чай и салат.","ya haçu çay i salat","Çay ve salata istiyorum."],["Счёт, пожалуйста.","şşot, pajalusta","Hesap lütfen."]]},
  {id:14,t:"Alışveriş",v:[["сколько стоит","skolka stoit","ne kadar / kaç para"],["деньги","dyengi","para"],["рубль","rubl","ruble"],["дорого","doraga","pahalı"],["дёшево","dyoşeva","ucuz"],["купить","kupit","satın almak"],["продавец","pradavyets","satıcı"],["сдача","zdaça","para üstü"]],
@@ -257,7 +257,7 @@ const C={blocks:[
   s:[["Вчера я работал.","fçera ya rabotal","Dün çalıştım."],["Я был в Москве.","ya bıl v Maskvye","Moskova'daydım."],["Раньше я жил в Хатае.","ranşe ya jil v Hataye","Eskiden Hatay'da yaşıyordum."]]},
  {id:19,t:"Gelecek Zaman",v:[["буду","budu","olacağım / -eceğim"],["будешь","budeş","olacaksın"],["будет","budet","olacak"],["завтра","zaftra","yarın"],["послезавтра","posle-zaftra","yarından sonra"],["скоро","skora","yakında"],["планировать","planiravat","planlamak"],["на следующей неделе","na sleduyuşşey nedele","gelecek hafta"]],
   s:[["Завтра я буду работать.","zaftra ya budu rabotat","Yarın çalışacağım."],["Скоро я буду говорить по-русски!","skora ya budu gavarit pa-russki","Yakında Rusça konuşacağım!"],["Что ты будешь делать завтра?","şto tı budeş dyelat zaftra","Yarın ne yapacaksın?"]]},
- {id:20,t:"Sıfatlar",v:[["большой","balşoy","büyük"],["маленький","malenkiy","küçük"],["красивый","krasivıy","güzel"],["хороший","haroşiy","iyi"],["плохой","plahoy","kötü"],["новый","novıy","yeni"],["старый","starıy","eski"],["интересный","interyesnıy","ilginç"],["вкусный","fkusnıy","lezzetli"]],
+ {id:20,t:"Sıfatlar",v:[["большой","balşoy","büyük"],["маленький","malenkiy","küçük"],["красивый","krasivıy","güzel"],["хороший","haroşiy","iyi"],["плохой","plahoy","kötü"],["новый","novıy","yeni"],["старый","starıy","eski"],["интересный","interyesnıy","ilginç"],["вкусный","fkusnıy","lezzetli"],["такой же","takoy je","tıpkı aynısı"],["красивый","krasivıy","güzel, yakışıklı"],["скучный","skuçnıy","sıkıcı"],["сломал","slamal","kırdı, bozdu"]],
   s:[["Адана — большой город.","Adana balşoy gorat","Adana büyük bir şehir."],["Это очень интересная книга.","eta oçen interyesnaya kniga","Bu çok ilginç bir kitap."],["Борщ очень вкусный.","borş oçen fkusnıy","Borç çok lezzetli."]]}
 ]},
 {id:5,name:"Sosyal Durumlar",color:"var(--b5)",bolums:[
@@ -277,12 +277,36 @@ const C={blocks:[
   s:[["Я думаю, это хорошая идея.","ya dumayu, eta haroşaya idyeya","Bence bu iyi bir fikir."],["По-моему, ты прав.","pa-moyemu, tı prav","Bana göre haklısın."],["Может быть, завтра.","mojet bıt, zaftra","Belki yarın."]]},
  {id:27,t:"Hikaye Anlatmak",v:[["сначала","snaçala","önce, başta"],["затем","zatyem","ardından"],["наконец","nakanyets","sonunda"],["вдруг","vdruk","aniden"],["история","istoriya","hikaye"],["рассказывать","rasskazıvat","anlatmak"],["случилось","sluçilas","oldu, meydana geldi"],["однажды","adnajdı","bir gün, bir keresinde"]],
   s:[["Сначала я работал, потом я пошёл домой.","snaçala ya rabotal, patom ya paşol damoy","Önce çalıştım, sonra eve gittim."],["Вдруг начался дождь!","vdruk naçalsya dojd","Aniden yağmur başladı!"],["Я расскажу тебе историю.","ya rasskaju tebe istoriyu","Sana bir hikaye anlatacağım."]]},
- {id:28,t:"Yardım İstemek",v:[["помогите","pamagitye","yardım edin"],["помощь","pomaşş","yardım"],["не понимаю","nye panimayu","anlamıyorum"],["повторите, пожалуйста","paftaritye, pajalusta","tekrar eder misiniz"],["говорите медленнее","gavaritye myedlenneye","daha yavaş konuşun"],["что значит...?","şto znaçit","... ne demek?"],["как сказать...?","kak skazat","... nasıl denir?"]],
-  s:[["Повторите, пожалуйста, я не понимаю.","paftaritye, pajalusta, ya nye panimayu","Tekrar edin lütfen, anlamıyorum."],["Как сказать 'kalem' по-русски?","kak skazat kalem pa-russki","'Kalem' Rusça nasıl denir?"],["Говорите медленнее, пожалуйста.","gavaritye myedlenneye, pajalusta","Daha yavaş konuşun lütfen."]]},
+ {id:28,t:"Yardım İstemek",v:[["помогите","pamagitye","yardım edin"],["помощь","pomaşş","yardım"],["не понимаю","nye panimayu","anlamıyorum"],["повторите, пожалуйста","paftaritye, pajalusta","tekrar eder misiniz"],["говорите медленнее","gavaritye myedlenneye","daha yavaş konuşun"],["что значит...?","şto znaçit","... ne demek?"],["как сказать...?","kak skazat","... nasıl denir?"],["Что случилось?","şto sluçilas","Ne oldu?"],["Что с тобой?","şto s taboy","Sana ne oldu?"],["Всё в порядке?","fsyo v paryadke","Her şey yolunda mı?"],["Ничего не случилось","niçevo nye sluçilas","Hiçbir şey olmadı"],["Помоги мне!","pamagi mnye","Bana yardım et!"]],
+  s:[["Повторите, пожалуйста, я не понимаю.","paftaritye, pajalusta, ya nye panimayu","Tekrar edin lütfen, anlamıyorum."],["Как сказать 'kalem' по-русски?","kak skazat kalem pa-russki","'Kalem' Rusça nasıl denir?"],["Говорите медленнее, пожалуйста.","gavaritye myedlenneye, pajalusta","Daha yavaş konuşun lütfen."],["Что случилось с папой?","şto sluçilas s papay","Babama ne oldu?"],["Марк, ты в порядке?","Mark, tı v paryadke","Mark, iyi misin?"]]},
  {id:29,t:"Telefon / Mesaj",v:[["алло","allo","alo"],["позвонить","pazvanit","aramak (telefon)"],["позвони мне","pazvani mnye","beni ara"],["написать","napisat","yazmak"],["сообщение","saabşşyeniye","mesaj"],["увидимся","uvidimsya","görüşürüz"],["до завтра","da zaftra","yarına"],["созвонимся","sazvanimsya","telefonlaşırız"]],
   s:[["Позвони мне вечером.","pazvani mnye vyeçeram","Beni akşam ara."],["Я напишу тебе сообщение.","ya napişu tebe saabşşyeniye","Sana mesaj yazarım."],["Увидимся завтра!","uvidimsya zaftra","Yarın görüşürüz!"]]},
- {id:30,t:"Final",v:[["поздравляю","pazdravlyayu","tebrikler"],["ты молодец","tı maladyets","aferin sana"],["всё возможно","fsyo vazmojna","her şey mümkün"]],
-  s:[["Поздравляю! Ты говоришь по-русски!","pazdravlyayu! tı gavariş pa-russki","Tebrikler! Rusça konuşuyorsun!"]]}
+ {id:30,t:"Final — Blok 6 Kapanış",v:[["поздравляю","pazdravlyayu","tebrikler"],["ты молодец","tı maladyets","aferin sana"],["всё возможно","fsyo vazmojna","her şey mümkün"],["продолжай","pradaljay","devam et"],["получилось","paluçilas","başardın, oldu"]],
+  s:[["Поздравляю! Ты говоришь по-русски!","pazdravlyayu! tı gavariş pa-russki","Tebrikler! Rusça konuşuyorsun!"],["Ты молодец, продолжай!","tı maladyets, pradaljay","Aferin sana, devam et!"]]}
+]},
+{id:7,name:"Hal Sistemi & Yapı",color:"var(--b7)",bolums:[
+ {id:31,t:"Genitive I — Sahiplik",v:[["у + kişi + есть","u ... yest","...'da var"],["у Светланы есть","u Svetlanı yest","Svetlana'da var"],["у брата","u brata","kardeşte"],["у мамы","u mamı","annede"],["у Наташи","u Nataşi","Nataşa'da"],["ручка","ruçka","kalem"],["кошелёк","kaşelyok","cüzdan"],["часы","çası","saat (kol saati)"],["билет","bilyet","bilet"]],
+  s:[["У Светланы есть очень красивая шляпа.","u Svetlanı yest oçen krasivaya şlyapa","Svetlana'nın çok güzel bir şapkası var."],["У твоей подруги есть билет?","u tvoyey padrugi yest bilyet","Kız arkadaşının bileti var mı?"],["У твоего брата есть часы?","u tvayevo brata yest çası","Kardeşinin saati var mı?"]]},
+ {id:32,t:"Genitive II — возле / от / Zamirler",v:[["мой → моего","moy → mayevo","benim (genitive, e)"],["моя → моей","maya → mayey","benim (genitive, k)"],["твой → твоего","tvoy → tvayevo","senin (genitive, e)"],["наш → нашего","naş → naşevo","bizim (genitive)"],["ваш → вашего","vaş → vaşevo","sizin (genitive)"],["возле","vozle","yanında"],["от","ot","...dan (kimden)"],["без","byez","...sız"],["копия","kopiya","kopya"]],
+  s:[["Я стою возле твоего офиса.","ya stayu vozle tvayevo ofisa","Senin ofisinin yanında duruyorum."],["Это от моего брата.","eta ot mayevo brata","Bu kardeşimden."],["Где моя копия договора?","gdye maya kopiya dagavora","Sözleşmemin kopyası nerede?"],["У нашего друга есть новая квартира.","u naşevo druga yest novaya kvartira","Arkadaşımızın yeni dairesi var."]]},
+ {id:33,t:"Dative — Мне холодно / нужен",v:[["мне","mnye","bana"],["тебе","tebye","sana"],["ему / ей","yemu / yey","ona (e/k)"],["нам / вам","nam / vam","bize / size"],["Мне холодно","mnye holadna","Üşüyorum"],["Мне скучно","mnye skuçna","Sıkılıyorum"],["Мне всё равно","mnye fsyo ravno","Bana fark etmez"],["Мне нужен...","mnye nujen","Bana ... lazım"],["дал / дала","dal / dala","verdi (e/k)"]],
+  s:[["Вам холодно, а мне жарко.","vam holadna, a mnye jarka","Siz üşüyorsunuz, bense sıcaklıyorum."],["Тебе здесь не скучно?","tebye zdyes nye skuçna","Burada sıkılmıyor musun?"],["Мой адвокат дал мне этот договор.","moy advakat dal mnye etat dagavor","Avukatım bana bu sözleşmeyi verdi."],["Мне всё равно.","mnye fsyo ravno","Bana fark etmez."]]},
+ {id:34,t:"Instrumental — Чем / С кем",v:[["чем","çyem","neyle"],["с кем","s kyem","kiminle"],["заниматься","zanimatsya","meşgul olmak"],["Чем ты занимаешься?","çyem tı zanimayeşsya","Neyle meşgulsün?"],["стирка → стиркой","stirka → stirkoy","çamaşır (ile)"],["уборка → уборкой","uborka → uborkoy","temizlik (ile)"],["с планшетом","s planşetam","tabletle"],["с другом","s drugam","arkadaşla"],["занят / занята","zanyat / zanyata","meşgul (e/k)"]],
+  s:[["Сегодня я буду заниматься стиркой.","syevodnya ya budu zanimatsya stirkoy","Bugün çamaşırla uğraşacağım."],["Мы работаем с веб-дизайнером.","mı rabotayem s veb-dizaynerom","Web tasarımcısıyla çalışıyoruz."],["Он немного занят.","on nyemnoga zanyat","O biraz meşgul."],["Я иду с планшетом.","ya idu s planşetam","Tabletle gidiyorum."]]},
+ {id:35,t:"Çift Olumsuzluk",v:[["ничего","niçevo","hiçbir şey"],["никого","nikavo","hiç kimseyi"],["никто","nikto","hiç kimse"],["никогда","nikagda","asla"],["нигде","nigdye","hiçbir yerde"],["ничего не...","niçevo nye","hiçbir şey ...mez"],["Ничего себе!","niçevo sebye","Vay canına!"],["при чём тут я?","pri çyom tut ya","Benim ne suçum var?"]],
+  s:[["Я ничего не сделал.","ya niçevo nye zdyelal","Hiçbir şey yapmadım."],["Мы ничего не видим.","mı niçevo nye vidim","Hiçbir şey görmüyoruz."],["Он мне ничего не сказал.","on mnye niçevo nye skazal","Bana hiçbir şey söylemedi."],["Я никого не ударил.","ya nikavo nye udaril","Kimseye vurmadım."]]}
+]},
+{id:8,name:"Doğal Konuşma",color:"var(--b8)",bolums:[
+ {id:36,t:"Fiil Görünüşü (Вид)",v:[["делать / сделать","dyelat / zdyelat","yapmak (süreç/sonuç)"],["покупать / купить","pakupat / kupit","satın almak"],["завтракать / позавтракать","zavtrakat / pazavtrakat","kahvaltı yapmak"],["заканчивать / закончить","zakançivat / zakonçit","bitirmek"],["Я сделаю","ya zdyelayu","yapacağım (tamamlayarak)"],["Я куплю","ya kuplyu","satın alacağım"],["Я закончу","ya zakonçu","bitireceğim"],["уже","uje","zaten, artık"],["ещё не","yeşşyo nye","henüz ...medi"]],
+  s:[["Я всё сделаю завтра.","ya fsyo zdyelayu zaftra","Her şeyi yarın yapacağım."],["Завтра я куплю новый планшет.","zaftra ya kuplyu novıy planşet","Yarın yeni tablet alacağım."],["Мы уже позавтракали.","mı uje pazavtrakali","Kahvaltıyı çoktan yaptık."],["Я ещё не закончил.","ya yeşşyo nye zakonçil","Henüz bitirmedim."]]},
+ {id:37,t:"Konuşma Tutkalı I",v:[["тогда","tagda","o zaman, öyleyse"],["вообще","vaapşşye","genel olarak, hiç"],["просто","prosta","sadece, basitçe"],["ещё","yeşşyo","hâlâ, daha"],["уже","uje","zaten"],["тоже","toje","de, da"],["точно","toçna","kesinlikle, aynen"],["наверно","navyerna","muhtemelen"],["ладно","ladna","peki, tamam"]],
+  s:[["Тогда пошли!","tagda paşli","O zaman gidelim!"],["Я вообще не понимаю.","ya vaapşşye nye panimayu","Hiç anlamıyorum."],["Я просто хочу смотреть баскетбол.","ya prosta haçu smatryet basketbol","Sadece basketbol izlemek istiyorum."],["Я ещё не знаю.","ya yeşşyo nye znayu","Hâlâ bilmiyorum."]]},
+ {id:38,t:"Konuşma Tutkalı II",v:[["короче","koroçe","kısacası"],["если честно","yesli çesna","açıkçası"],["в смысле","v smıslye","yani? ne demek?"],["по-моему","pa-moyemu","bence"],["кстати","kstati","bu arada"],["например","naprimyer","mesela"],["конечно","kanyeşna","tabii ki"],["не за что","nye za şto","rica ederim, ne demek"],["слушай","sluşay","dinle, bak"]],
+  s:[["Короче, не получается решить.","koroçe, nye paluçayetsya reşit","Kısacası, karar veremiyorum."],["Если честно, у меня там не получается.","yesli çesna, u menya tam nye paluçayetsya","Açıkçası orada beceremiyorum."],["В смысле, с веб-дизайнером?","v smıslye, s veb-dizaynerom","Yani, web tasarımcısıyla mı?"],["По-моему, ваша кошка там.","pa-moyemu, vaşa koşka tam","Bence kediniz orada."]]},
+ {id:39,t:"Tepkiler & Duygular",v:[["Ничего себе!","niçevo sebye","Vay canına!"],["Получилось!","paluçilas","Oldu! İşe yaradı!"],["Не получается","nye paluçayetsya","Olmuyor, işe yaramıyor"],["Ух ты!","uh tı","Vay be!"],["Это круто!","eta kruta","Bu harika!"],["Блин!","blin","Yuh! Of!"],["С ума сошёл?","s uma saşol","Aklını mı kaçırdın?"],["ненавижу","nyenavicu","nefret ediyorum"],["Не за что","nye za şto","Bir şey değil"]],
+  s:[["Ух ты! Так это круто!","uh tı! tak eta kruta","Vay be! Bu harika!"],["Я ненавижу этот телефон.","ya nyenavicu etat telefon","Bu telefondan nefret ediyorum."],["Ты с ума сошла?","tı s uma saşla","Aklını mı kaçırdın? (kadına)"],["Не получается!","nye paluçayetsya","Olmuyor!"]]},
+ {id:40,t:"Emir Kipi & Günlük Komutlar",v:[["иди / идите","idi / iditye","git / gidin"],["помоги / помогите","pamagi / pamagitye","yardım et / edin"],["стой / стойте","stoy / stoytye","dur / durun"],["скажи / скажите","skaji / skajitye","söyle / söyleyin"],["слушай","sluşay","dinle"],["пошли","paşli","gidelim, hadi"],["давай","davay","hadi"],["подожди","padajdi","bekle"],["смотри","smatri","bak"]],
+  s:[["Иди, помоги папе.","idi, pamagi papye","Git, babana yardım et."],["Роберт, стой! Есть машины на стоянке.","Robert, stoy! yest maşinı na stayanke","Robert, dur! Otoparkta arabalar var."],["Скажи, где ты обедал?","skaji, gdye tı abyedal","Söyle, nerede öğle yemeği yedin?"],["Пошли в парк!","paşli v park","Hadi parka gidelim!"]]}
 ]}
 ]};
 
@@ -310,7 +334,21 @@ const HUNT={
    {q:"Сегодня очень холодно и жарко.",fix:"Сегодня очень жарко.",why:"Çelişki — biri seçilir."},
    {q:"Столик на два, пожалуйста.",fix:"Столик на двоих, пожалуйста.",why:"Kişi sayısı: на двоих."}],
 6:[{q:"Я думаю что ты права, но не согласен.",fix:"Я думаю, что ты прав, но я не согласен.",why:"Erkek → прав; özne tekrarı gerekir."},
-   {q:"Повторите медленнее, я не понимаете.",fix:"Повторите медленнее, я не понимаю.",why:"я → понимаю."}]
+   {q:"Повторите медленнее, я не понимаете.",fix:"Повторите медленнее, я не понимаю.",why:"я → понимаю."}],
+7:[{q:"У Светлана есть шляпа.",fix:"У Светланы есть шляпа.",why:"у + genitive: Светлана→Светланы"},
+   {q:"Я стою возле твой офис.",fix:"Я стою возле твоего офиса.",why:"возле + genitive: твой→твоего, офис→офиса"},
+   {q:"Мне нужен помощь.",fix:"Мне нужна помощь.",why:"помощь kadın → нужна"},
+   {q:"Я ничего сделал.",fix:"Я ничего не сделал.",why:"Çift olumsuzluk: ничего + не zorunlu"},
+   {q:"Чем ты занимаешься? — Я занимаюсь стирка.",fix:"...Я занимаюсь стиркой.",why:"заниматься + instrumental: стирка→стиркой"},
+   {q:"Это от мой брат.",fix:"Это от моего брата.",why:"от + genitive"},
+   {q:"Я никого видел.",fix:"Я никого не видел.",why:"никого + не birlikte gelir"},
+   {q:"Мне холодная.",fix:"Мне холодно.",why:"Durum bildiriminde zarf: холодно"}],
+8:[{q:"Завтра я буду купить планшет.",fix:"Завтра я куплю планшет.",why:"Tamamlanmış gelecek: куплю (буду gerekmez)"},
+   {q:"Я уже не закончил.",fix:"Я ещё не закончил.",why:"'Henüz' = ещё не, 'zaten' = уже"},
+   {q:"Иди, помоги папа.",fix:"Иди, помоги папе.",why:"помочь + dative: папа→папе"},
+   {q:"Тогда я буду сделать.",fix:"Тогда я сделаю.",why:"сделаю zaten gelecek anlamı taşır"},
+   {q:"Я вообще понимаю не.",fix:"Я вообще не понимаю.",why:"не fiilin hemen önüne gelir"},
+   {q:"Стой! Идите сюда, друг.",fix:"Стой! Иди сюда, друг.",why:"Samimi tekil: иди (идите resmi/çoğul)"}]
 };
 const DIALOG={
 1:[{ctx:"Kafede tanışma:",lines:["— Здравствуйте! Как вас зовут?","— ___ Али. А вас?"],opts:["Меня зовут","Мне зовут","Я зовут"],a:0},
@@ -326,7 +364,17 @@ const DIALOG={
 5:[{ctx:"Plan:",lines:["— ___ встретимся завтра!","— Договорились!"],opts:["Давай","Дай","Надо"],a:0},
    {ctx:"Hava:",lines:["— Какая сегодня ___?","— Жарко!"],opts:["погода","дождь","зима"],a:0}],
 6:[{ctx:"Fikir:",lines:["— Это хорошая идея?","— ___ , это отличная идея!"],opts:["По-моему","Помоги","Наконец"],a:0},
-   {ctx:"Yardım:",lines:["— Вы понимаете?","— Нет, ___ , пожалуйста."],opts:["повторите","позвоните","посмотрите"],a:0}]
+   {ctx:"Yardım:",lines:["— Вы понимаете?","— Нет, ___ , пожалуйста."],opts:["повторите","позвоните","посмотрите"],a:0}],
+7:[{ctx:"Sahiplik:",lines:["— У кого есть ручка?","— ___ студента есть ручка."],opts:["У твой","У твоего","У твоё"],a:1},
+   {ctx:"Konum:",lines:["— Ты где?","— Я стою ___ твоего офиса."],opts:["возле","в","на"],a:0},
+   {ctx:"Durum:",lines:["— Тебе жарко?","— Нет, ___ холодно."],opts:["я","мне","меня"],a:1},
+   {ctx:"Meşguliyet:",lines:["— ___ ты занимаешься?","— Уборкой."],opts:["Что","Чем","Кто"],a:1},
+   {ctx:"Olumsuzluk:",lines:["— Что ты сделал?","— Я ___ не сделал."],opts:["ничего","никого","никто"],a:0}],
+8:[{ctx:"Gelecek:",lines:["— Когда купишь планшет?","— Завтра ___ ."],opts:["буду купить","куплю","покупаю"],a:1},
+   {ctx:"Karar:",lines:["— Билетов нет.","— ___ пошли домой."],opts:["Тогда","Вообще","Просто"],a:0},
+   {ctx:"Toparlama:",lines:["— Так что решил?","— ___ , не получается."],opts:["Короче","Конечно","Тоже"],a:0},
+   {ctx:"Emir:",lines:["— Мне нужна помощь!","— ___ , я иду!"],opts:["Подожди","Подождите","Ждать"],a:0},
+   {ctx:"Şaşkınlık:",lines:["— Я купил новую машину!","— ___ ! Это круто!"],opts:["Ничего себе","Не за что","Ладно"],a:0}]
 };
 /* Hata defteri — baştan yüklü kişisel hatalar */
 const ERR_SEED=[
@@ -342,6 +390,7 @@ const ERR_SEED=[
 
 
 /* Bölüm bazlı kural notları — Çalış modunda gösterilir */
+const UPDATED_BOLUMS=[3,6,11,12,20,28];
 const RULES={
 1:[["Temel Kural","Rusçada 'am/is/are' fiili yok. <b>Я инженер</b> = kelime kelime 'Ben mühendis.'"],
    ["Soru Yapmak","Sadece tonlama yeter: <b>Он студент?</b> = 'O öğrenci mi?' — ek gerekmez."],
@@ -360,6 +409,8 @@ const RULES={
    ["11-19 Kalıbı","Hepsi <b>-надцать</b> ile biter = 'üzerine on'. Türkçedeki 'on üç' mantığı."],
    ["Birleşik Sayı","Büyük sayı önce: тридцать один (31), двадцать пять (25)."]],
 6:[["Sahiplik Kalıbı","<b>У меня есть</b> = 'Bende var'. Asla 'у мне' değil!"],
+   ["Kimin? — чей","Erkek eşya→<b>чей</b> • Kadın eşya→<b>чья</b> • Nötr→<b>чьё</b>: Чья это пицца?"],
+   ["İsimden Sahiplik","Kişi adına ek: Саша→<b>Сашина</b> машина, Наташа→<b>Наташин</b> свитер"],
    ["Yok Hali","<b>У меня нет</b> + kelime <b>-и/-я</b> alır: у меня нет семьи, нет времени"],
    ["Yaş Karşılaştırma","<b>старше меня</b> = benden büyük &nbsp;|&nbsp; <b>младше меня</b> = benden küçük"]],
 7:[["Prepozisyonel Hal","<b>в</b> + şehir → kelime sonu değişir: Адана→<b>Адане</b>, Хатай→<b>Хатае</b>, Москва→<b>Москве</b>"],
@@ -377,10 +428,14 @@ const RULES={
     ["Buçuk & Çeyrek","Konuşma dilinde basitçe sayı+sayı: <b>пять тридцать</b> (5:30), <b>семь пятнадцать</b> (7:15)"],
     ["Saatle Birleşince","утром→<b>утра</b>, вечером→<b>вечера</b>: в семь утра, в пять вечера"],
     ["Aralık","<b>с ... до ...</b> = ...dan ...a kadar → с восьми до пяти"]],
-11:[["Araç Kalıbı","<b>я еду на</b> + araç: на метро, на автобусе, на такси, на машине"],
+11:[["Араç Kalıbı","<b>я еду на</b> + araç: на метро, на автобусе, на такси, на машине"],
+    ["Куда vs Где","<b>Куда?</b> = Nereye (hareket) &nbsp;|&nbsp; <b>Где?</b> = Nerede (konum). 'Ты куда?' çok yaygın!"],
+    ["через","'...sonra' anlamında: <b>через час</b> (bir saat sonra), <b>через 20 минут</b>"],
     ["SLT: на метро","Kelime kelime 'metro ÜZERİNDE' — Rusça araçları binilen yüzey gibi görür."],
     ["Yürüyerek","<b>пешком</b> tek başına kullanılır, 'на' almaz: Я иду пешком ✅"]],
 12:[["Nerede?","<b>в</b> + kapalı mekan (в магазине, в банке) &nbsp;|&nbsp; <b>на</b> + açık/etkinlik (на работе, на рынке)"],
+    ["возле","'Yanında' — arkasından genitive gelir: возле ресторан<b>а</b>, возле офис<b>а</b>"],
+    ["Konum Fiilleri","Rusça 'durmak' fiilini ayırır: dikey→<b>стоит</b> (чашка стоит), yatay→<b>лежит</b>"],
     ["Var mı?","<b>Здесь есть...?</b> = Burada ... var mı?"]],
 13:[["Kibar İstek","<b>Можно ...?</b> = ... olur mu / alabilir miyim? En kibar kalıp."],
     ["İstiyorum","<b>Я хочу</b> + isim veya mastar fiil: Я хочу чай / Я хочу есть"],
@@ -398,6 +453,7 @@ const RULES={
 19:[["Gelecek Zaman","<b>буду</b> + mastar fiil: Я буду работать (çalışacağım)"],
     ["Çekim","я буду / ты будешь / он будет / мы будем"]],
 20:[["Sıfat Uyumu","Sıfat ismin cinsiyetine uyar: больш<b>ой</b> город (e) / больш<b>ая</b> книга (k)"],
+    ["такой же","'Tıpkı aynısı' — sıfat gibi çekilir: так<b>ой</b> же чай, так<b>ую</b> же чашку"],
     ["очень","<b>очень</b> = çok → очень хорошо, очень вкусно"]],
 21:[["Давай","<b>Давай</b> + biz-formu fiil = 'Hadi ...': Давай встретимся!"],
     ["Müsaitlik","<b>свободен</b> (e) / <b>свободна</b> (k) = müsait"]],
@@ -413,9 +469,48 @@ const RULES={
     ["Katılma","<b>согласен</b> (e) / <b>согласна</b> (k) = katılıyorum"]],
 27:[["Hikaye Sırası","<b>сначала</b> (önce) → <b>потом/затем</b> (sonra) → <b>наконец</b> (sonunda)"]],
 28:[["Hayat Kurtaran 3 Cümle","<b>Я не понимаю</b> &nbsp;|&nbsp; <b>Повторите, пожалуйста</b> &nbsp;|&nbsp; <b>Говорите медленнее</b>"],
+    ["Что случилось?","'Ne oldu?' — endişe ifadesi. <b>Что с тобой?</b> = Sana ne oldu?"],
     ["Kelime Sorma","<b>Как сказать ... по-русски?</b> = ... Rusça nasıl denir?"]],
 29:[["Telefon","<b>Алло</b> ile başla, <b>Созвонимся</b> ile bitir."]],
-30:[["Tebrikler!","Buraya kadar geldiysen artık Rusça konuşabiliyorsun. Поздравляю! 🎉"]]
+30:[["Tebrikler!","Blok 6'yı bitirdin! Ama daha bitmedi — Blok 7 ve 8 seni gerçek akıcılığa taşıyacak. 🎉"]],
+31:[["у + Genitive","<b>у</b> + kişi(genitive) + <b>есть</b> = '...da var'. Kişi adı da değişir: Светлана→<b>Светланы</b>, брат→<b>брата</b>"],
+    ["Kadın İsimler","-а/-я ile bitenler <b>-ы/-и</b> alır: мама→мамы, Наташа→Наташи, подруга→подруги"],
+    ["Erkek İsimler","Sessizle bitenler <b>-а</b> alır: брат→брата, друг→друга, студент→студента"]],
+32:[["Zamir Genitive","мой→<b>моего</b> • твой→<b>твоего</b> • наш→<b>нашего</b> • ваш→<b>вашего</b> (erkek/nötr)"],
+    ["Kadın Zamiri","моя→<b>моей</b> • твоя→<b>твоей</b> • наша→<b>нашей</b>"],
+    ["Genitive İsteyen Edatlar","<b>возле</b> (yanında) • <b>от</b> (kimden) • <b>без</b> (...sız) • <b>у</b> (...da)"],
+    ["Örnek Zincir","возле <b>твоего</b> офиса • от <b>моего</b> брата • у <b>нашего</b> друга"]],
+33:[["Dative Mantığı","Duygu ve durum <b>bana/sana</b> ile ifade edilir: <b>Мне</b> холодно = 'Bana soğuk' (üşüyorum)"],
+    ["Türkçeye Benzerlik","'Bana sıkıcı geliyor' = <b>Мне скучно</b>. Aynı mantık!"],
+    ["Zamirler","я→<b>мне</b> • ты→<b>тебе</b> • он→<b>ему</b> • она→<b>ей</b> • мы→<b>нам</b> • вы→<b>вам</b>"],
+    ["Lazım","<b>Мне нужен</b> + erkek isim / <b>нужна</b> + kadın isim / <b>нужно</b> + nötr"]],
+34:[["Чем = Neyle","<b>заниматься</b> + instrumental: стирка→<b>стиркой</b>, уборка→<b>уборкой</b>"],
+    ["С кем = Kiminle","<b>с</b> + instrumental: друг→<b>с другом</b>, брат→<b>с братом</b>"],
+    ["Ek Kalıbı","Erkek: <b>-ом/-ем</b> • Kadın: <b>-ой/-ей</b>"],
+    ["Sık Soru","<b>Чем ты занимаешься?</b> = Neyle uğraşıyorsun / Ne iş yapıyorsun?"]],
+35:[["Çift Olumsuzluk","Rusçada olumsuz kelime + <b>не</b> birlikte kullanılır — Türkçedeki 'hiçbir şey yapmaDIM' gibi!"],
+    ["Kalıp","<b>ничего не</b> сделал • <b>никого не</b> видел • <b>никогда не</b> был"],
+    ["İngilizceden Farkı","İngilizcede 'I didn't do anything' — Rusçada iki olumsuz ZORUNLU: Я ничего не сделал ✅"]],
+36:[["Görünüş Nedir?","Rusçada her fiilin iki hali var: <b>süreç</b> (делать) ve <b>sonuç</b> (сделать)"],
+    ["Gelecek Farkı","<b>Я буду делать</b> = yapıyor olacağım (süreç) &nbsp;|&nbsp; <b>Я сделаю</b> = yapıp bitireceğim"],
+    ["Ön Ek Mantığı","Çoğunlukla başa ek gelir: делать→<b>с</b>делать, завтракать→<b>по</b>завтракать, обедать→<b>по</b>обедать"],
+    ["Pratik İpucu","Bitmiş/tamamlanmış iş → sonuç hali. Devam eden/alışkanlık → süreç hali."]],
+37:[["Particle Nedir?","Bunlar cümleye anlam katan küçük kelimeler — Rusçayı doğal yapan şey bunlar."],
+    ["тогда","'Öyleyse, o zaman' — karar anında: <b>Тогда пошли!</b>"],
+    ["вообще","'Genel olarak' veya olumsuzda 'hiç': <b>Я вообще не понимаю</b>"],
+    ["просто","'Sadece, basitçe': <b>Я просто хочу...</b>"]],
+38:[["короче","'Kısacası' — Ruslar cümleyi toparlarken sürekli kullanır"],
+    ["если честно","'Açıkçası, dürüst olmak gerekirse'"],
+    ["в смысле","'Yani? Ne demek?' — anlamadığında veya netleştirirken"],
+    ["не за что","'Rica ederim / Bir şey değil' — спасибо'ya cevap"]],
+39:[["Duygu Dili","Bu ifadeler dilbilgisi değil, kültür. Doğru anda kullanmak akıcılık işaretidir."],
+    ["Ничего себе!","Şaşkınlık: 'Vay canına!' — hem olumlu hem olumsuz sürprizde"],
+    ["Получилось / Не получается","'Oldu!' / 'Olmuyor!' — günlük hayatta sürekli"],
+    ["Блин","Hafif küfür, 'Of ya!' gibi. Kibar ortamda dikkat."]],
+40:[["Emir Kipi","Samimi: <b>иди</b> • Resmi/çoğul: <b>идите</b> (sonuna -те)"],
+    ["Yumuşatma","Emirlerin sonuna <b>пожалуйста</b> ekle, kabalaşmasın"],
+    ["Пошли vs Давай","<b>Пошли!</b> = Gidelim (hareket) &nbsp;|&nbsp; <b>Давай!</b> = Hadi (genel teşvik)"]]
+
 };
 
 /* ==================== STATE ==================== */
@@ -424,7 +519,7 @@ let S=null;
 const today=()=>new Date().toISOString().slice(0,10);
 function defState(){
   const st={streak:{count:1,last:today()},boxes:{},sentBoxes:{},errors:{},customErrors:[],
-    blocks:{1:{unlocked:true,exam:true},2:{unlocked:true,exam:false},3:{unlocked:false,exam:false},4:{unlocked:false,exam:false},5:{unlocked:false,exam:false},6:{unlocked:false,exam:false}},
+    blocks:{1:{unlocked:true,exam:true},2:{unlocked:true,exam:false},3:{unlocked:false,exam:false},4:{unlocked:false,exam:false},5:{unlocked:false,exam:false},6:{unlocked:false,exam:false},7:{unlocked:false,exam:false},8:{unlocked:false,exam:false}},
     bolums:{}};
   [1,2,3,4,5,6].forEach(b=>st.bolums[b]={done:true});
   st.bolums[7]={done:false};
@@ -438,6 +533,7 @@ async function load(){
     else{const r=localStorage.getItem(KEY);S=r?JSON.parse(r):defState();}
   }catch(e){S=defState();}
   if(!S.sentBoxes)S.sentBoxes={};
+  [7,8].forEach(b=>{if(!S.blocks[b])S.blocks[b]={unlocked:false,exam:false}});
   touchStreak();render();
 }
 let saveT=null;
@@ -487,8 +583,8 @@ function sentDue(pool){
 }
 function gradeSent(ru,ok){
   const cur=S.sentBoxes[ru]||{box:1};
-  const box=ok?Math.min(4,cur.box+1):1;
-  const add=[0,1,3,7][box-1]??7;
+  const box=ok?Math.min(6,cur.box+1):1;
+  const add=[0,1,3,7,14,30][box-1]??30;
   const d=new Date();d.setDate(d.getDate()+(ok?add:0));
   S.sentBoxes[ru]={box,due:d.toISOString().slice(0,10)};save();
 }
@@ -599,44 +695,203 @@ function showBlock(id){
     b.bolums.forEach(bo=>{
       const bs=S.bolums[bo.id];
       const state=bs&&bs.done?'✅':bs?'📖':'🔒';
-      h+=`<div class="row" style="padding:5px 0;border-bottom:1px solid var(--line)"><span>${state}</span><span class="grow">Bölüm ${bo.id} — ${bo.t}</span>`;
-      h+=`<button class="btn" style="padding:4px 10px;font-size:.78rem" onclick="bolumStudy(${bo.id})">📖 Çalış</button>`;
+      const isNew=UPDATED_BOLUMS.includes(bo.id)&&bs&&bs.done;
+      h+=`<div class="row" style="padding:5px 0;border-bottom:1px solid var(--line)"><span>${state}</span><span class="grow">Bölüm ${bo.id} — ${bo.t}${isNew?' <span style="background:var(--brass);color:#14181F;border-radius:5px;padding:1px 6px;font-size:.66rem;font-weight:700">YENİ İÇERİK</span>':''}</span>`;
+      h+=`<button class="btn ${isNew?'gold':''}" style="padding:4px 10px;font-size:.78rem" onclick="bolumStudy(${bo.id})">📖 Çalış</button>`;
       if(bs&&!bs.done)h+=`<button class="btn gold" style="padding:4px 10px;font-size:.78rem" onclick="bolumTest(${bo.id})">Test</button>`;
       h+='</div>';
     });
     h+='</div>';
+    const anyNew=b.bolums.some(bo=>UPDATED_BOLUMS.includes(bo.id)&&S.bolums[bo.id]&&S.bolums[bo.id].done);
+    if(anyNew)h+=`<p style="margin-top:10px;font-size:.83rem;color:var(--brass)">✨ Bu blokta yeni kelime ve kurallar eklendi — <b>YENİ İÇERİK</b> etiketli bölümlere uğra. Yeni kelimeler zaten kart havuzuna eklendi.</p>`;
     if(!st.exam)h+=`<p class="muted" style="margin-top:10px">Bu bloğun tüm bölümlerini bitir, sonra 🎓 Blok Sınavı ile sonraki hattı aç.</p>`;
   }
   $('blockDetail').innerHTML=h;
 }
 
-/* Bölüm çalışma modu — kelimeler, cümleler, kurallar (sesli) */
-window.bolumStudy=function(id){
+/* ===== ÇALIŞ MODU — 4 aşamalı egzersiz akışı ===== */
+let SM={id:null,stage:0,bo:null,blk:null};
+window.bolumStudy=function(id,stage){
   let bo=null,blk=null;C.blocks.forEach(b=>b.bolums.forEach(x=>{if(x.id===id){bo=x;blk=b}}));
-  const esc=s=>s.replace(/'/g,"\\'");
-  let h=`<span class="tag" style="color:${blk.color}">Bölüm ${id} — ${bo.t}</span>`;
-  // Kurallar
-  if(RULES[id]){
-    h+=`<h3 style="margin:12px 0 6px">📌 Kurallar & İpuçları</h3>`;
-    RULES[id].forEach(r=>{h+=`<div style="background:var(--panel2);border-left:3px solid var(--brass);border-radius:0 10px 10px 0;padding:9px 12px;margin:6px 0">
-      <b style="color:var(--brass);font-size:.85rem">${r[0]}</b><div style="font-size:.88rem;margin-top:3px">${r[1]}</div></div>`});
-  }
-  // Kelimeler
-  h+=`<h3 style="margin:14px 0 6px">📇 Kelimeler <span class="muted" style="font-weight:400;font-size:.8rem">(${bo.v.length})</span></h3>`;
-  h+=`<div class="row" style="margin-bottom:6px"><button class="btn ghost" style="padding:5px 12px;font-size:.8rem" onclick="playAll(${id},'v')">▶ Hepsini Dinle</button></div>`;
-  bo.v.forEach(w=>{h+=`<div class="row" style="padding:6px 0;border-bottom:1px solid var(--line);gap:6px">
-    <button class="btn ghost" style="padding:3px 8px" onclick="speak('${esc(w[0])}')">🔊</button>
-    <span class="grow" style="min-width:120px"><b>${w[0]}</b> <span class="muted" style="font-size:.82rem">${w[1]}</span></span>
-    <span style="color:var(--brass);font-size:.88rem">${w[2]}</span></div>`});
-  // Cümleler
-  h+=`<h3 style="margin:14px 0 6px">💬 Örnek Cümleler</h3>`;
-  h+=`<div class="row" style="margin-bottom:6px"><button class="btn ghost" style="padding:5px 12px;font-size:.8rem" onclick="playAll(${id},'s')">▶ Hepsini Dinle</button></div>`;
-  bo.s.forEach(x=>{h+=`<div style="padding:8px 0;border-bottom:1px solid var(--line)">
-    <div class="row" style="gap:6px"><button class="btn ghost" style="padding:3px 8px" onclick="speak('${esc(x[0])}')">🔊</button><b class="grow">${x[0]}</b></div>
-    <div class="muted" style="padding-left:42px;font-size:.85rem;margin-top:2px">${x[1]}<br><span style="color:var(--brass)">${x[2]}</span></div></div>`});
-  h+=`<div class="row" style="margin-top:14px"><button class="btn gold" onclick="bolumTest(${id})">Teste Geç →</button><button class="btn ghost" onclick="renderHome()">← Kapat</button></div>`;
-  $('blockDetail').innerHTML=h;
+  SM={id,stage:stage||0,bo,blk};
+  drawStudy();
   $('blockDetail').scrollIntoView({behavior:'smooth',block:'start'});
+};
+function studyNav(){
+  const names=['📖 Tanış','👂 Duy','✍️ Uygula','🎯 Test'];
+  return `<div class="row" style="gap:5px;margin:8px 0 12px">`+names.map((n,i)=>
+    `<button class="btn ${i===SM.stage?'gold':''}" style="padding:6px 11px;font-size:.79rem;flex:1" onclick="bolumStudy(${SM.id},${i})">${n}</button>`).join('')+`</div>`;
+}
+function drawStudy(){
+  const {bo,blk,id,stage}=SM;
+  const esc=s=>s.replace(/'/g,"\\'");
+  let h=`<div class="row"><span class="tag grow" style="color:${blk.color}">Bölüm ${id} — ${bo.t}</span>
+    <button class="btn ghost" style="padding:3px 10px;font-size:.75rem" onclick="renderHome()">← Kapat</button></div>${studyNav()}`;
+
+  if(stage===0){ /* TANIŞ */
+    if(RULES[id]){h+=`<h3 style="margin:6px 0">📌 Kurallar & İpuçları</h3>`;
+      RULES[id].forEach(r=>{h+=`<div style="background:var(--panel2);border-left:3px solid var(--brass);border-radius:0 10px 10px 0;padding:9px 12px;margin:6px 0">
+      <b style="color:var(--brass);font-size:.85rem">${r[0]}</b><div style="font-size:.88rem;margin-top:3px">${r[1]}</div></div>`});}
+    h+=`<h3 style="margin:14px 0 6px">📇 Kelimeler <span class="muted" style="font-weight:400;font-size:.8rem">(${bo.v.length})</span>
+      <button class="btn ghost" style="padding:4px 10px;font-size:.75rem;float:right" onclick="playAll(${id},'v')">▶ Hepsi</button></h3>`;
+    bo.v.forEach(w=>{h+=`<div class="row" style="padding:6px 0;border-bottom:1px solid var(--line);gap:6px">
+      <button class="btn ghost" style="padding:3px 8px" onclick="speak('${esc(w[0])}')">🔊</button>
+      <span class="grow" style="min-width:110px"><b>${w[0]}</b> <span class="muted" style="font-size:.8rem">${w[1]}</span></span>
+      <span style="color:var(--brass);font-size:.86rem">${w[2]}</span></div>`});
+    h+=`<h3 style="margin:14px 0 6px">💬 Cümleler
+      <button class="btn ghost" style="padding:4px 10px;font-size:.75rem;float:right" onclick="playAll(${id},'s')">▶ Hepsi</button></h3>`;
+    bo.s.forEach(x=>{h+=`<div style="padding:8px 0;border-bottom:1px solid var(--line)">
+      <div class="row" style="gap:6px"><button class="btn ghost" style="padding:3px 8px" onclick="speak('${esc(x[0])}')">🔊</button><b class="grow">${x[0]}</b></div>
+      <div class="muted" style="padding-left:42px;font-size:.84rem">${x[1]}<br><span style="color:var(--brass)">${x[2]}</span></div></div>`});
+    h+=`<div class="row" style="margin-top:14px"><button class="btn gold grow" onclick="bolumStudy(${id},1)">Dinlemeye Geç →</button></div>`;
+    $('blockDetail').innerHTML=h;
+
+  } else if(stage===1){ /* DUY */
+    h+=`<div id="lsArea"></div>`;$('blockDetail').innerHTML=h;studyListen();
+
+  } else if(stage===2){ /* UYGULA */
+    h+=`<p class="muted">Bu bölümün malzemesiyle 3 farklı alıştırma:</p>
+      <div class="grid" style="grid-template-columns:1fr 1fr;gap:8px;margin:8px 0">
+        <button class="mod" onclick="exMatch(${id})"><span class="ic">🔗</span><b>Eşleştirme</b><span>kelime ↔ anlam</span></button>
+        <button class="mod" onclick="exBlank(${id})"><span class="ic">✏️</span><b>Boşluk Doldur</b><span>cümledeki eksik</span></button>
+        <button class="mod" onclick="exChip(${id})"><span class="ic">🧩</span><b>Cümle Kur</b><span>kelimeleri diz</span></button>
+        <button class="mod" onclick="exRecall(${id})"><span class="ic">🧠</span><b>Hatırlama</b><span>Türkçe → Rusça</span></button>
+      </div><div id="exArea"></div>`;
+    $('blockDetail').innerHTML=h;
+
+  } else { /* TEST */
+    h+=`<div id="tArea"></div>`;$('blockDetail').innerHTML=h;
+    const done=S.bolums[id]&&S.bolums[id].done;
+    $('tArea').innerHTML=`<div class="card" style="text-align:center">
+      ${done?'<p class="muted">Bu bölümü daha önce geçtin — tekrar deneyebilirsin.</p>':''}
+      <button class="btn gold" onclick="bolumTest(${id})">Mini Testi Başlat</button></div>`;
+  }
+}
+/* Aşama 1: dinle-tekrar (bölüme özel) */
+function studyListen(){
+  const {bo,id}=SM;let i=0;
+  const list=bo.s.concat(bo.v.filter(w=>w[0].split(' ').length>1).map(w=>[w[0],w[1],w[2]]));
+  function show(){
+    if(i>=list.length){$('lsArea').innerHTML=`<div class="card" style="text-align:center">✅ Dinleme turu bitti!<br><br>
+      <button class="btn gold" onclick="bolumStudy(${id},2)">Alıştırmalara Geç →</button></div>`;touchStreak();return}
+    const x=list[i];
+    $('lsArea').innerHTML=`<div class="tag">Dinle & Tekrar Et • ${i+1}/${list.length}</div>
+      <div class="card" style="text-align:center">
+      <button class="btn gold" id="pB" style="font-size:1.05rem;padding:13px 26px">🔊 Dinle</button>
+      <p class="muted" style="margin:10px 0">Dinle → <b>sesli tekrar et</b> → metni aç</p>
+      <div id="rA"></div>
+      <div class="row" style="justify-content:center;margin-top:10px">
+        <button class="btn" id="rB">Metni Göster</button><button class="btn ok" id="nB" style="display:none">Sıradaki →</button>
+      </div></div>`;
+    $('pB').onclick=()=>speak(x[0]);
+    $('rB').onclick=()=>{$('rA').innerHTML=`<div class="bigru" style="font-size:1.15rem">${x[0]}</div><div style="color:var(--brass)">${x[1]}</div><div class="muted">${x[2]}</div>`;$('nB').style.display='inline-block'};
+    $('nB').onclick=()=>{i++;show()};
+    speak(x[0]);
+  }
+  show();
+}
+/* Aşama 2 alıştırmaları */
+window.exMatch=function(id){
+  let bo=null;C.blocks.forEach(b=>b.bolums.forEach(x=>{if(x.id===id)bo=x}));
+  const pairs=shuffle(bo.v).slice(0,Math.min(6,bo.v.length));
+  const left=shuffle(pairs),right=shuffle(pairs);
+  let sel=null,matched=0;
+  let h=`<div class="tag">Eşleştirme • ${pairs.length} çift</div><div class="card"><div class="row" style="align-items:flex-start;gap:10px">
+    <div style="flex:1" id="cL"></div><div style="flex:1" id="cR"></div></div><div id="mDone"></div></div>`;
+  $('exArea').innerHTML=h;
+  const drawCol=(el,items,side)=>{el.innerHTML='';items.forEach(w=>{
+    const b=document.createElement('button');b.className='opt';b.style.margin='4px 0';b.style.fontSize='.86rem';
+    b.textContent=side==='L'?w[0]:w[2];b.dataset.k=w[0];
+    b.onclick=()=>{
+      if(b.classList.contains('right'))return;
+      if(!sel){sel={b,side};b.style.borderColor='var(--brass)';return}
+      if(sel.side===side){sel.b.style.borderColor='';sel={b,side};b.style.borderColor='var(--brass)';return}
+      if(sel.b.dataset.k===b.dataset.k){sel.b.classList.add('right');b.classList.add('right');sel.b.style.borderColor='';matched++;
+        if(matched===pairs.length)$('mDone').innerHTML=`<p style="text-align:center;color:var(--ok);font-weight:600;margin-top:10px">✅ Hepsi eşleşti!</p>
+        <div class="row" style="justify-content:center"><button class="btn" onclick="exMatch(${id})">Tekrar</button></div>`;
+      }else{b.classList.add('wrong');sel.b.classList.add('wrong');const a=sel.b;setTimeout(()=>{b.classList.remove('wrong');a.classList.remove('wrong');a.style.borderColor=''},700)}
+      sel=null;
+    };el.appendChild(b)})};
+  drawCol($('cL'),left,'L');drawCol($('cR'),right,'R');
+};
+window.exBlank=function(id){
+  let bo=null;C.blocks.forEach(b=>b.bolums.forEach(x=>{if(x.id===id)bo=x}));
+  const vocabAll=allVocab(doneBolums()).map(v=>v.w[0]).filter(w=>w.split(' ').length===1);
+  const qs=shuffle(bo.s).slice(0,Math.min(6,bo.s.length)).map(x=>{
+    const words=x[0].split(' ').filter(w=>w.replace(/[.,!?—]/g,'').length>2);
+    const t=words[Math.floor(Math.random()*words.length)]||x[0].split(' ')[0];
+    const clean=t.replace(/[.,!?—]/g,'');
+    const wrong=smartDistractors([clean],vocabAll,3);
+    const opts=shuffle([clean,...wrong]);
+    return{prompt:x[0].replace(t,'<span style="color:var(--brass)">_____</span>')+`<div class="muted" style="font-size:.84rem;margin-top:6px">${x[2]}</div>`,opts,a:opts.indexOf(clean),ru:x[0],srcRu:x[0]};
+  });
+  runQuiz($('exArea'),qs,{title:'Boşluk Doldur',pass:Math.ceil(qs.length*.7),passMsg:'✅ İyi iş!',failMsg:'Biraz daha tekrar gerek.',onEnd:()=>{}});
+};
+window.exChip=function(id){
+  let bo=null;C.blocks.forEach(b=>b.bolums.forEach(x=>{if(x.id===id)bo=x}));
+  const sents=shuffle(bo.s.filter(x=>x[0].split(' ').length>=3)).slice(0,5);
+  if(!sents.length){$('exArea').innerHTML='<div class="card" style="text-align:center">Bu bölümde uzun cümle yok.</div>';return}
+  const vocabAll=allVocab(doneBolums()).map(v=>v.w[0]).filter(w=>w.split(' ').length===1);
+  let i=0,score=0;
+  function show(){
+    if(i>=sents.length){$('exArea').innerHTML=`<div class="res" style="color:${score>=sents.length*.7?'var(--ok)':'var(--bad)'}">${score}/${sents.length}</div>
+      <div class="row" style="justify-content:center"><button class="btn" onclick="exChip(${id})">Tekrar</button></div>`;touchStreak();return}
+    const x=sents[i];const correct=x[0].replace(/[.!?]$/,'').split(' ');
+    const nD=Math.min(3,Math.max(2,Math.floor(correct.length/2)));
+    const chips=shuffle([...correct,...smartDistractors(correct,vocabAll,nD)]);
+    let picked=[];
+    $('exArea').innerHTML=`<div class="tag">Cümle Kur • ${i+1}/${sents.length}</div>
+      <div class="card"><p class="muted">Bu cümleyi Rusça kur:</p>
+      <div class="bigru" style="font-size:1.05rem;padding:8px">${x[2]}</div>
+      <div class="chipArea" id="aA"></div><div class="row" id="bk" style="justify-content:center"></div>
+      <div class="row" style="justify-content:center;margin-top:12px">
+        <button class="btn ghost" id="cB">↺</button><button class="btn gold" id="kB">Kontrol</button><button class="btn ghost" id="sB">Bilmiyorum</button></div>
+      <div id="rr" style="margin-top:10px"></div></div>`;
+    const bk=$('bk'),aA=$('aA');
+    chips.forEach(w=>{const b=document.createElement('button');b.className='chip';b.textContent=w;
+      b.onclick=()=>{if(b.classList.contains('used'))return;b.classList.add('used');picked.push({w,el:b});draw()};bk.appendChild(b)});
+    function draw(){aA.innerHTML='';aA.classList.toggle('filled',picked.length>0);
+      picked.forEach((p,k)=>{const b=document.createElement('button');b.className='chip';b.textContent=p.w;
+        b.onclick=()=>{p.el.classList.remove('used');picked.splice(k,1);draw()};aA.appendChild(b)})}
+    $('cB').onclick=()=>{picked.forEach(p=>p.el.classList.remove('used'));picked=[];draw()};
+    $('sB').onclick=()=>rev(false);
+    $('kB').onclick=()=>{if(!picked.length)return;
+      const ok=norm(picked.map(p=>p.w).join(' '))===norm(correct.join(' '));
+      Array.from(aA.children).forEach((el,k)=>el.classList.add(picked[k].w===correct[k]?'ok':'no'));rev(ok)};
+    function rev(ok){document.querySelectorAll('#bk .chip').forEach(b=>b.classList.add('used'));
+      $('kB').disabled=true;$('cB').disabled=true;$('sB').disabled=true;if(ok)score++;gradeSent(x[0],ok);
+      $('rr').innerHTML=`${ok?'<p style="color:var(--ok);text-align:center;font-weight:600">✅ Doğru!</p>':`<p style="text-align:center;color:var(--bad);font-weight:600">Doğrusu:</p><div class="bigru" style="font-size:1rem;color:var(--ok)">${x[0]}</div>`}
+        <div class="muted" style="text-align:center;font-size:.84rem">${x[1]}</div>
+        <div class="row" style="justify-content:center;margin-top:10px"><button class="btn ghost" onclick="speak('${x[0].replace(/'/g,"\\'")}')">🔊</button><button class="btn ok" id="nn">Sıradaki →</button></div>`;
+      $('nn').onclick=()=>{i++;show()};
+    }
+  }
+  show();
+};
+window.exRecall=function(id){
+  let bo=null;C.blocks.forEach(b=>b.bolums.forEach(x=>{if(x.id===id)bo=x}));
+  const items=shuffle(bo.v.concat(bo.s.map(s=>[s[0],s[1],s[2]]))).slice(0,8);
+  let i=0,score=0;
+  function show(){
+    if(i>=items.length){$('exArea').innerHTML=`<div class="res" style="color:${score>=items.length*.7?'var(--ok)':'var(--bad)'}">${score}/${items.length}</div>
+      <p style="text-align:center" class="muted">Hatırlama turu bitti</p>
+      <div class="row" style="justify-content:center"><button class="btn" onclick="exRecall(${id})">Tekrar</button></div>`;touchStreak();return}
+    const x=items[i];
+    $('exArea').innerHTML=`<div class="tag">Hatırlama • ${i+1}/${items.length}</div>
+      <div class="card"><p class="muted">Rusçasını <b>sesli söyle</b>, sonra kontrol et:</p>
+      <div class="bigru" style="font-size:1.15rem">${x[2]}</div>
+      <div class="row" style="justify-content:center"><button class="btn gold" id="gB">Cevabı Gör</button></div>
+      <div id="ga" style="margin-top:10px"></div></div>`;
+    $('gB').onclick=()=>{
+      $('ga').innerHTML=`<div class="bigru" style="font-size:1.1rem;color:var(--ok)">${x[0]}</div>
+        <div class="muted" style="text-align:center">${x[1]}</div>
+        <div class="row" style="justify-content:center;margin-top:10px">
+        <button class="btn ghost" onclick="speak('${x[0].replace(/'/g,"\\'")}')">🔊</button>
+        <button class="btn ok" id="yy">Bildim</button><button class="btn bad" id="nnn">Bilemedim</button></div>`;
+      $('yy').onclick=()=>{score++;i++;show()};$('nnn').onclick=()=>{i++;show()};
+    };
+  }
+  show();
 };
 window.playAll=function(id,type){
   let bo=null;C.blocks.forEach(b=>b.bolums.forEach(x=>{if(x.id===id)bo=x}));
@@ -720,8 +975,8 @@ function startCards(){
     $('fc').onclick=()=>{flipped=true;$('fcTr').style.visibility='visible';$('fcBtns').style.visibility='visible'};
     document.querySelectorAll('#fcBtns .btn').forEach(b=>b.onclick=()=>{
       const g=+b.dataset.g;const cur=S.boxes[w[0]]||{box:1};
-      let box=g===0?1:g===1?cur.box:Math.min(4,cur.box+1);
-      const add=[0,1,3,7][box-1]??7;
+      let box=g===0?1:g===1?cur.box:Math.min(6,cur.box+1);
+      const add=[0,1,3,7,14,30][box-1]??30;
       const d=new Date();d.setDate(d.getDate()+(g===0?0:add));
       S.boxes[w[0]]={box,due:d.toISOString().slice(0,10)};save();
       i++;show();
@@ -929,7 +1184,7 @@ function buildSprint(){
     const chips=shuffle([...correct,...distractors]);
     let picked=[];
     const bx=(S.sentBoxes[x[0]]||{box:1}).box;
-    $('sprintArea').innerHTML=`<div class="tag">Cümle Kurma • ${i+1}/${sents.length} • ${['🔴 yeni/zayıf','🟠 tanıdık','🟡 iyi','🟢 sağlam'][bx-1]}</div>
+    $('sprintArea').innerHTML=`<div class="tag">Cümle Kurma • ${i+1}/${sents.length} • ${['🔴 yeni/zayıf','🟠 tanıdık','🟡 iyi','🟢 sağlam','🔵 güçlü','🟣 usta'][bx-1]}</div>
     <div class="card">
       <p class="muted">Bu cümleyi Rusça kur:</p>
       <div class="bigru" style="font-size:1.1rem;padding:8px">${x[2]}</div>
