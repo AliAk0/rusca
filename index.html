@@ -22,8 +22,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%}
 body{background:var(--bg);color:var(--ink);font-family:'Rubik',sans-serif;min-height:100vh;line-height:1.5}
-.wrap{max-width:860px;margin:0 auto;padding:16px}
-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:2px solid var(--brass)}
+
 .logo{font-family:'Russo One',sans-serif;font-size:1.15rem;letter-spacing:.5px;line-height:1.2}
 .logo small{display:block;font-family:'Rubik';font-weight:300;color:var(--muted);font-size:.7rem;letter-spacing:2px;text-transform:uppercase}
 .streak{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:6px 12px;text-align:center;min-width:70px}
@@ -107,6 +106,80 @@ input[type=text]:focus{outline:2px solid var(--brass);border-color:var(--brass)}
 .res{font-family:'Russo One';font-size:2rem;text-align:center;padding:10px}
 .timer{font-family:'Russo One';color:var(--brass)}
 footer{border-top:1px solid var(--line);padding:14px 0 30px;color:var(--muted);font-size:.75rem;text-align:center}
+
+/* --- günlük halka --- */
+.ringWrap{display:flex;align-items:center;gap:14px}
+.ring{position:relative;width:62px;height:62px;flex:0 0 auto}
+.ring svg{transform:rotate(-90deg)}
+.ring .rtxt{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
+.ring .rtxt b{font-family:'Russo One';font-size:.95rem;color:var(--brass)}
+.ring .rtxt span{font-size:.55rem;color:var(--muted);letter-spacing:.5px}
+/* --- görev listesi --- */
+.task{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line)}
+.task:last-child{border-bottom:none}
+.task .tick{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-size:.7rem}
+.task.done .tick{background:var(--ok);border-color:var(--ok);color:#14181F;font-weight:700}
+.task.done .tlbl{opacity:.5;text-decoration:line-through}
+.tlbl{flex:1;font-size:.88rem}
+.tsub{font-size:.72rem;color:var(--muted)}
+/* --- nag --- */
+.nag{background:linear-gradient(135deg,rgba(200,80,60,.18),rgba(210,166,75,.12));border:1px solid var(--bad);border-radius:12px;padding:12px 14px;margin-bottom:12px}
+.nag b{color:var(--bad)}
+.nag.ok{background:rgba(78,155,94,.12);border-color:var(--ok)}
+.nag.ok b{color:var(--ok)}
+/* --- kiril klavye --- */
+.kbd{display:flex;flex-wrap:wrap;gap:3px;justify-content:center;margin-top:8px}
+.kbd button{background:var(--panel2);border:1px solid var(--line);border-radius:7px;min-width:30px;padding:9px 4px;font-size:1rem;color:var(--ink);cursor:pointer;font-family:'Rubik'}
+.kbd button:active{background:var(--brass);color:#14181F}
+.kbd button.wide{min-width:62px;font-size:.78rem}
+.typeBox{background:var(--bg);border:2px solid var(--line);border-radius:12px;padding:12px;min-height:52px;font-size:1.15rem;text-align:center;word-break:break-word}
+.typeBox.filled{border-color:var(--brass)}
+.typeBox .cur{border-right:2px solid var(--brass);animation:bl 1s steps(1) infinite}
+@keyframes bl{50%{border-color:transparent}}
+/* --- istatistik --- */
+.bars{display:flex;align-items:flex-end;gap:6px;height:110px;padding:6px 0}
+.bars .bcol{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end}
+.bars .bar{width:100%;background:var(--brass);border-radius:4px 4px 0 0;min-height:3px;transition:.3s}
+.bars .bar.z{background:var(--line)}
+.bars .bl{font-size:.63rem;color:var(--muted)}
+.stat{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:12px;text-align:center}
+.stat b{display:block;font-family:'Russo One';font-size:1.35rem;color:var(--brass);line-height:1.2}
+.stat span{font-size:.7rem;color:var(--muted)}
+.noteit{background:var(--panel2);border-left:3px solid var(--brass);border-radius:0 10px 10px 0;padding:9px 12px;margin:6px 0;font-size:.87rem}
+.noteit .nd{font-size:.68rem;color:var(--muted);margin-bottom:3px}
+
+/* --- uygulama kabuğu --- */
+body{padding-bottom:0}
+.wrap{max-width:860px;margin:0 auto;padding:0 16px 96px}
+header{position:sticky;top:0;z-index:40;background:var(--bg);display:flex;align-items:center;gap:10px;padding:12px 0 10px;border-bottom:1px solid var(--line)}
+.backB{background:var(--panel);border:1px solid var(--line);color:var(--ink);border-radius:10px;width:34px;height:34px;flex:0 0 auto;font-size:1rem;cursor:pointer;display:none;align-items:center;justify-content:center}
+.backB.on{display:flex}
+.htitle{flex:1;min-width:0}
+.htitle b{display:block;font-family:'Russo One';font-size:1rem;letter-spacing:.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.htitle span{display:block;font-size:.66rem;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase}
+/* --- alt tab bar --- */
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;background:var(--panel);border-top:1px solid var(--line);padding:6px 4px calc(6px + env(safe-area-inset-bottom));box-shadow:0 -4px 18px rgba(0,0,0,.35)}
+.tabbar button{flex:1;background:none;border:none;color:var(--muted);font-family:'Rubik';font-size:.68rem;padding:6px 2px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;border-radius:10px}
+.tabbar button .ti{font-size:1.25rem;line-height:1}
+.tabbar button.act{color:var(--brass)}
+.tabbar button.act .ti{transform:translateY(-1px)}
+.tabbar .dot{position:absolute;top:3px;right:50%;margin-right:-16px;width:8px;height:8px;border-radius:50%;background:var(--bad);display:none}
+.tabbar .dot.on{display:block}
+/* --- hub listesi --- */
+.hubsec{font-size:.68rem;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted);margin:16px 0 8px;font-weight:600}
+.hitem{display:flex;align-items:center;gap:12px;width:100%;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:13px 14px;margin-bottom:8px;cursor:pointer;text-align:left;transition:.15s;color:var(--ink);font-family:'Rubik'}
+.hitem:hover{border-color:var(--brass)}
+.hitem:active{transform:scale(.985)}
+.hitem .hic{font-size:1.4rem;width:34px;text-align:center;flex:0 0 auto}
+.hitem .htx{flex:1;min-width:0}
+.hitem .htx b{display:block;font-size:.95rem}
+.hitem .htx span{display:block;font-size:.75rem;color:var(--muted)}
+.hitem .harr{color:var(--muted);font-size:1.1rem}
+.hitem .hbadge{background:var(--bad);color:#fff;border-radius:999px;font-size:.68rem;padding:2px 8px;font-weight:600}
+.hitem .hbadge.ok{background:var(--ok)}
+.contB{width:100%;background:linear-gradient(135deg,var(--brass),#B8923F);color:#14181F;border:none;border-radius:16px;padding:16px;font-family:'Rubik';font-weight:700;font-size:1rem;cursor:pointer;display:flex;align-items:center;gap:12px;text-align:left;margin-bottom:12px}
+.contB .cic{font-size:1.6rem}
+.contB small{display:block;font-weight:400;font-size:.76rem;opacity:.8}
 @media(max-width:520px){.fcard .big{font-size:1.5rem}.bigru{font-size:1.2rem}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -114,50 +187,57 @@ footer{border-top:1px solid var(--line);padding:14px 0 30px;color:var(--muted);f
 <body>
 <div class="wrap">
 <header>
-  <div class="logo">РУССКАЯ СТАНЦИЯ<small>Rusça Antrenman İstasyonu</small></div>
-  <div class="streak"><b id="stCount">0</b><span>gün seri</span></div>
+  <button class="backB" id="backB" onclick="goBack()">←</button>
+  <div class="htitle"><b id="hTitle">РУССКАЯ СТАНЦИЯ</b><span id="hSub">Rusça Antrenman İstasyonu</span></div>
+  <div class="streak"><b id="stCount">0</b><span>🔥 seri</span></div>
+  <div class="ring" id="dayRing"></div>
 </header>
 
-<nav id="nav">
-  <button data-s="home" class="act">🏠 İstasyon</button>
-  <button data-s="cards">📇 Kartlar</button>
-  <button data-s="listen">🔊 Dinleme</button>
-  <button data-s="read">🔤 Okuma</button>
-  <button data-s="errors">⚠️ Hatalar</button>
-  <button data-s="sprint">⚡ Sprint</button>
-  <button data-s="exam">🎓 Sınavlar</button>
-</nav>
 
 <!-- ============ HOME ============ -->
 <section id="home" class="show">
   <div id="voiceWarn" class="warn" style="display:none">🔇 Tarayıcında Rusça ses bulunamadı. Chrome kullanmayı dene — dinleme modülü için gerekli.</div>
-  <h2>Hat Haritası</h2>
+  <div id="nagArea"></div>
+  <div id="contArea"></div>
+  <div class="hubsec">Bugünün Görevi</div>
+  <div class="card" id="dailyCard"></div>
+  <div class="hubsec">Nerede Kaldın</div>
+  <div class="card" id="homeProgress"></div>
+</section>
+
+<!-- ============ ÇALIŞ HUB ============ -->
+<section id="study">
+  <div class="hubsec">Müfredat</div>
+  <button class="hitem" onclick="nav('map')"><span class="hic">🚇</span><span class="htx"><b>Hat Haritası</b><span id="hiMap">Bloklar ve bölümler</span></span><span class="harr">›</span></button>
+  <div class="hubsec">Antrenman</div>
+  <button class="hitem" onclick="nav('cards')"><span class="hic">📇</span><span class="htx"><b>Kelime Kartları</b><span>SRS aralıklı tekrar</span></span><span class="hbadge" id="hiCards"></span><span class="harr">›</span></button>
+  <button class="hitem" onclick="nav('listen')"><span class="hic">🔊</span><span class="htx"><b>Dinleme</b><span>Dinle-tekrar · dikte · shadowing</span></span><span class="harr">›</span></button>
+  <button class="hitem" onclick="nav('read')"><span class="hic">🔤</span><span class="htx"><b>Kiril Okuma</b><span>Okunuşsuz okuma pratiği</span></span><span class="harr">›</span></button>
+  <button class="hitem" onclick="nav('write')"><span class="hic">⌨️</span><span class="htx"><b>Kiril Yazma</b><span id="hiWrite">Klavyeyle harf harf yaz</span></span><span class="harr">›</span></button>
+  <button class="hitem" onclick="nav('sprint')"><span class="hic">⚡</span><span class="htx"><b>Sprint</b><span>Çeviri · hata avı · cümle kurma</span></span><span class="harr">›</span></button>
+  <button class="hitem" onclick="nav('errors')"><span class="hic">⚠️</span><span class="htx"><b>Hata Defteri</b><span>Kişisel hataların</span></span><span class="hbadge" id="hiErr"></span><span class="harr">›</span></button>
+</section>
+
+<!-- ============ HAT HARİTASI ============ -->
+<section id="map">
   <div class="card metro"><div class="mline" id="metroMap"></div></div>
   <div class="card" id="blockDetail"></div>
-  <h2>Modüller</h2>
-  <div class="grid">
-    <button class="mod" data-go="cards"><span class="ic">📇</span><b>Kelime Kartları</b><span id="dueInfo">SRS tekrar sistemi</span></button>
-    <button class="mod" data-go="listen"><span class="ic">🔊</span><b>Dinleme</b><span>Dinle-tekrar & dikte</span></button>
-    <button class="mod" data-go="read"><span class="ic">🔤</span><b>Kiril Okuma</b><span>Okunuşsuz okuma</span></button>
-    <button class="mod" data-go="errors"><span class="ic">⚠️</span><b>Hata Defteri</b><span id="errInfo">Kişisel hataların</span></button>
-    <button class="mod" data-go="sprint"><span class="ic">⚡</span><b>Sprint</b><span>Çeviri • Hata avı • Diyalog</span></button>
-    <button class="mod" data-go="exam"><span class="ic">🎓</span><b>Blok Sınavı</b><span>Sonraki hattın kilidini aç</span></button>
-  </div>
 </section>
 
 <!-- ============ CARDS ============ -->
 <section id="cards">
-  <h2>📇 Kelime Kartları</h2>
+  
   <p class="muted" id="cardMeta"></p>
   <div id="cardArea"></div>
 </section>
 
 <!-- ============ LISTEN ============ -->
 <section id="listen">
-  <h2>🔊 Dinleme</h2>
+  
   <div class="row" style="margin-bottom:10px">
     <button class="btn" id="mListenRep">Dinle & Tekrar Et</button>
     <button class="btn" id="mListenDic">Dikte</button>
+    <button class="btn" id="mShadow">🗣️ Shadowing</button>
     <label class="muted" style="margin-left:auto"><input type="checkbox" id="slowTts"> 🐢 yavaş</label>
   </div>
   <div id="listenArea"></div>
@@ -165,14 +245,14 @@ footer{border-top:1px solid var(--line);padding:14px 0 30px;color:var(--muted);f
 
 <!-- ============ READ ============ -->
 <section id="read">
-  <h2>🔤 Kiril Okuma</h2>
+  
   <p class="muted">Cümleyi sesli oku. Sonra kontrol et.</p>
   <div id="readArea"></div>
 </section>
 
 <!-- ============ ERRORS ============ -->
 <section id="errors">
-  <h2>⚠️ Hata Defteri</h2>
+  
   <p class="muted">Tekrarlayan hataların. 3 kez üst üste doğru → listeden düşer.</p>
   <div class="row" style="margin:10px 0">
     <button class="btn gold" id="errDrillBtn">Drill Başlat</button>
@@ -184,7 +264,7 @@ footer{border-top:1px solid var(--line);padding:14px 0 30px;color:var(--muted);f
 
 <!-- ============ SPRINT ============ -->
 <section id="sprint">
-  <h2>⚡ Sprint</h2>
+  
   <div class="row" style="margin-bottom:10px">
     <button class="btn" id="spTrans">Çeviri Sprinti</button>
     <button class="btn" id="spHunt">Hata Avı</button>
@@ -196,7 +276,7 @@ footer{border-top:1px solid var(--line);padding:14px 0 30px;color:var(--muted);f
 
 <!-- ============ EXAM ============ -->
 <section id="exam">
-  <h2>🎓 Sınavlar</h2>
+  
   <div class="row" style="margin-bottom:12px">
     <button class="btn" id="tabBlock">🚇 Blok Sınavı</button>
     <button class="btn" id="tabCum">📚 Kümülatif</button>
@@ -205,7 +285,31 @@ footer{border-top:1px solid var(--line);padding:14px 0 30px;color:var(--muted);f
   <div id="examArea"></div>
 </section>
 
-<footer>Rusça Antrenman İstasyonu • 8 blok / 40 bölüm • A1 → B1+ • konuşma pratiği için Claude'a dön</footer>
+<!-- ============ WRITE ============ -->
+<section id="write">
+  
+  <p class="muted">Türkçesi verilir, Kiril klavyeyle yazarsın. Transliterasyon alışkanlığını kırar.</p>
+  <div class="row" style="margin:10px 0">
+    <button class="btn" id="wrWord">Kelime Modu</button>
+    <button class="btn" id="wrSent">Cümle Modu</button>
+  </div>
+  <div id="writeArea"></div>
+</section>
+
+<!-- ============ STATS ============ -->
+<section id="stats">
+  
+  <div id="statsArea"></div>
+</section>
+
+<footer>Русская Станция • 8 blok / 40 bölüm • A1 → B1+ • günlük hedef + SRS + Kiril yazma • konuşma pratiği için Claude'a dön</footer>
+</div>
+
+<div class="tabbar" id="tabbar">
+  <button data-t="home"><span class="ti">🏠</span>Ana<span class="dot" id="dHome"></span></button>
+  <button data-t="study"><span class="ti">📚</span>Çalış<span class="dot" id="dStudy"></span></button>
+  <button data-t="exam"><span class="ti">🎓</span>Sınav</button>
+  <button data-t="stats"><span class="ti">📊</span>İstatistik</button>
 </div>
 
 <script>
@@ -519,6 +623,7 @@ let S=null;
 const today=()=>new Date().toISOString().slice(0,10);
 function defState(){
   const st={streak:{count:1,last:today()},boxes:{},sentBoxes:{},errors:{},customErrors:[],
+    daily:newDay(),history:[],notes:[],goalMin:10,
     blocks:{1:{unlocked:true,exam:true},2:{unlocked:true,exam:false},3:{unlocked:false,exam:false},4:{unlocked:false,exam:false},5:{unlocked:false,exam:false},6:{unlocked:false,exam:false},7:{unlocked:false,exam:false},8:{unlocked:false,exam:false}},
     bolums:{}};
   [1,2,3,4,5,6].forEach(b=>st.bolums[b]={done:true});
@@ -526,6 +631,7 @@ function defState(){
   ERR_SEED.forEach(e=>st.errors[e.id]={streak:0,cleared:false});
   return st;
 }
+function newDay(){return{date:today(),sec:0,cards:0,drill:0,listen:0,podcast:0,write:0,exer:0}}
 const hasClaudeStore=typeof window.storage!=='undefined'&&window.storage&&typeof window.storage.get==='function';
 async function load(){
   try{
@@ -533,8 +639,12 @@ async function load(){
     else{const r=localStorage.getItem(KEY);S=r?JSON.parse(r):defState();}
   }catch(e){S=defState();}
   if(!S.sentBoxes)S.sentBoxes={};
+  if(!S.history)S.history=[];
+  if(!S.notes)S.notes=[];
+  if(!S.goalMin)S.goalMin=10;
+  if(!S.daily)S.daily=newDay();
   [7,8].forEach(b=>{if(!S.blocks[b])S.blocks[b]={unlocked:false,exam:false}});
-  touchStreak();render();
+  rollDay();touchStreak();render();startTimer();startNagLoop();
 }
 let saveT=null;
 function save(){clearTimeout(saveT);saveT=setTimeout(async()=>{
@@ -549,6 +659,107 @@ function touchStreak(){
   const d=(new Date(t)-new Date(l))/864e5;
   S.streak.count=d===1?S.streak.count+1:1;S.streak.last=t;save();
 }
+
+
+/* ===== GÜNLÜK TAKİP ===== */
+function rollDay(){
+  if(S.daily.date===today())return;
+  if(S.daily.sec>0||S.daily.cards>0||S.daily.podcast>0){
+    S.history.push({...S.daily});
+    if(S.history.length>120)S.history=S.history.slice(-120);
+  }
+  S.daily=newDay();save();
+}
+function goalSec(){return S.goalMin*60}
+function dayPct(){return Math.min(100,Math.round(S.daily.sec/goalSec()*100))}
+function goalMet(){return S.daily.sec>=goalSec()&&S.daily.cards>0}
+let timerH=null,lastTick=Date.now();
+function startTimer(){
+  if(timerH)clearInterval(timerH);
+  lastTick=Date.now();
+  timerH=setInterval(()=>{
+    if(document.hidden)return;
+    const now=Date.now();
+    const d=Math.min(5,Math.round((now-lastTick)/1000));
+    lastTick=now;
+    rollDay();
+    S.daily.sec+=d;
+    if(S.daily.sec%15===0)save();
+    drawRing();
+    if(CUR==='home'&&$('dailyCard'))drawDaily();
+  },1000);
+  document.addEventListener('visibilitychange',()=>{lastTick=Date.now()});
+}
+function drawRing(){
+  const el=$('dayRing');if(!el)return;
+  const p=dayPct(),r=25,circ=2*Math.PI*r;
+  const col=p>=100?'var(--ok)':'var(--brass)';
+  el.innerHTML=`<svg width="62" height="62" viewBox="0 0 62 62">
+    <circle cx="31" cy="31" r="${r}" fill="none" stroke="var(--line)" stroke-width="6"/>
+    <circle cx="31" cy="31" r="${r}" fill="none" stroke="${col}" stroke-width="6" stroke-linecap="round"
+      stroke-dasharray="${circ}" stroke-dashoffset="${circ*(1-p/100)}"/></svg>
+    <div class="rtxt"><b style="color:${col}">${Math.floor(S.daily.sec/60)}</b><span>/${S.goalMin} dk</span></div>`;
+}
+/* Görev listesi */
+function tasksToday(){
+  const due=dueCards().length;
+  const act=Object.values(S.errors).filter(e=>!e.cleared).length+S.customErrors.filter(e=>!e.cleared).length;
+  return [
+    {k:'sec',ok:S.daily.sec>=goalSec(),lbl:`${S.goalMin} dakika çalış`,sub:`${Math.floor(S.daily.sec/60)} dk ${S.daily.sec%60} sn tamamlandı`},
+    {k:'cards',ok:S.daily.cards>0&&due===0,lbl:'Günün kartlarını bitir',sub:due?`${due} kart kaldı`:'bugünlük tamam ✓',go:'cards'},
+    {k:'drill',ok:act===0||S.daily.drill>0,lbl:'Hata drilli yap',sub:act?`${act} aktif hata`:'liste temiz ✓',go:'errors'},
+    {k:'listen',ok:S.daily.listen>0,lbl:'Bir dinleme turu',sub:S.daily.listen?`${S.daily.listen} tur ✓`:'dinle-tekrar / shadowing',go:'listen'},
+    {k:'podcast',ok:S.daily.podcast>=15,lbl:'15 dk podcast / video',sub:S.daily.podcast?`${S.daily.podcast} dk kaydedildi`:'Russian with Max, Comprehensible Russian'}
+  ];
+}
+function drawDaily(){
+  const t=tasksToday(),doneN=t.filter(x=>x.ok).length;
+  let h=`<div class="row" style="margin-bottom:8px"><span class="tag grow">${doneN}/${t.length} görev · ${dayPct()}% süre</span>
+    <button class="btn ghost" style="padding:3px 10px;font-size:.72rem" onclick="setGoal()">⚙️ hedef</button></div><div class="prog"><i style="width:${doneN/t.length*100}%"></i></div>`;
+  t.forEach(x=>{
+    h+=`<div class="task ${x.ok?'done':''}"><div class="tick">${x.ok?'✓':''}</div>
+      <div class="grow"><div class="tlbl">${x.lbl}</div><div class="tsub">${x.sub}</div></div>
+      ${x.go&&!x.ok?`<button class="btn" style="padding:4px 10px;font-size:.75rem" onclick="go('${x.go}')">Git</button>`:''}
+      ${x.k==='podcast'?`<button class="btn ${x.ok?'':'gold'}" style="padding:4px 10px;font-size:.75rem" onclick="logPodcast()">+15 dk</button>`:''}</div>`;
+  });
+  if(doneN===t.length)h+=`<p style="text-align:center;color:var(--ok);font-weight:600;margin-top:10px">🎉 Bugünün hepsi tamam — seri güvende!</p>`;
+  if(!S.notifOn)h+=`<div class="row" style="margin-top:10px;border-top:1px solid var(--line);padding-top:10px">
+    <span class="tsub grow">🔔 Hatırlatma: uygulama açıkken dürtebilirim. Kapalıyken en güvenilir yol telefon alarmı.</span>
+    <button class="btn" style="padding:4px 10px;font-size:.74rem" onclick="setupNotif()">Aç</button></div>`;
+  $('dailyCard').innerHTML=h;
+}
+window.logPodcast=function(){S.daily.podcast+=15;save();drawDaily();drawNag()};
+window.setGoal=function(){
+  const v=prompt('Günlük hedef (dakika):',S.goalMin);
+  const n=parseInt(v);if(n&&n>0&&n<180){S.goalMin=n;save();drawRing();drawDaily()}
+};
+/* Darlama */
+function drawNag(){
+  const el=$('nagArea');if(!el)return;
+  const t=tasksToday(),miss=t.filter(x=>!x.ok);
+  const yest=S.history[S.history.length-1];
+  let h='';
+  if(miss.length===0){h=`<div class="nag ok"><b>✅ Bugün tamam.</b> ${S.streak.count} günlük seri sürüyor — yarın da gel.</div>`}
+  else{
+    const msgs=[
+      `Bugün daha <b>${miss.length} görev</b> duruyor. 10 dakika — Instagram'da zaten harcadın.`,
+      `Seri: <b>${S.streak.count} gün</b>. Bugün boş geçersen sıfırlanır. ${miss[0].lbl} ile başla.`,
+      `Rusça seni beklemiyor, sen onu bekliyorsun. Eksik: <b>${miss.map(m=>m.lbl).join(', ')}</b>.`,
+      `Dün yaptın, bugün neden olmasın? <b>${miss.length} görev</b> kaldı.`
+    ];
+    const idx=(new Date().getHours())%msgs.length;
+    h=`<div class="nag"><b>⏰ Günlük hedef tamamlanmadı.</b><br>${msgs[idx]}</div>`;
+  }
+  if(yest&&yest.date!==today()){
+    const gap=Math.round((new Date(today())-new Date(yest.date))/864e5);
+    if(gap>1)h=`<div class="nag"><b>😴 ${gap} gündür uğramadın.</b> Serin kırıldı — bugün 10 dakikayla yenisini başlat.</div>`+h;
+  }
+  el.innerHTML=h;
+}
+/* Sayfadan çıkarken uyar */
+window.addEventListener('beforeunload',e=>{
+  if(S&&!goalMet()&&S.daily.sec>30){e.preventDefault();e.returnValue=''}
+});
 
 /* ==================== HELPERS ==================== */
 const $=id=>document.getElementById(id);
@@ -655,21 +866,92 @@ function mixedQuestions(pool,n){
   return shuffle([...vq,...sq]);
 }
 
-/* ==================== NAV ==================== */
-document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>go(b.dataset.s));
-document.querySelectorAll('.mod').forEach(m=>m.onclick=()=>go(m.dataset.go));
-function go(s){
-  document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('act',b.dataset.s===s));
-  document.querySelectorAll('section').forEach(x=>x.classList.toggle('show',x.id===s));
-  if(s==='home')renderHome();if(s==='cards')startCards();if(s==='listen')$('listenArea').innerHTML='<p class="muted">Yukarıdan mod seç.</p>';
-  if(s==='read')startRead();if(s==='errors')renderErrors();if(s==='sprint')$('sprintArea').innerHTML='<p class="muted">Yukarıdan sprint seç. 🧩 Cümle Kurma en zorlayıcı olanı — yapıyı sen kuruyorsun.</p>';
-  if(s==='exam')renderExam();
-  window.scrollTo(0,0);
+/* ==================== ROUTER ==================== */
+const ROUTES={
+  home:{tab:'home',t:'РУССКАЯ СТАНЦИЯ',s:'Rusça Antrenman İstasyonu'},
+  study:{tab:'study',t:'Çalış',s:'Müfredat ve antrenman'},
+  map:{tab:'study',t:'Hat Haritası',s:'Bloklar ve bölümler',back:'study'},
+  cards:{tab:'study',t:'Kelime Kartları',s:'SRS aralıklı tekrar',back:'study'},
+  listen:{tab:'study',t:'Dinleme',s:'Dinle-tekrar · dikte · shadowing',back:'study'},
+  read:{tab:'study',t:'Kiril Okuma',s:'Okunuşsuz okuma',back:'study'},
+  write:{tab:'study',t:'Kiril Yazma',s:'Klavyeyle yaz',back:'study'},
+  sprint:{tab:'study',t:'Sprint',s:'Hızlı alıştırmalar',back:'study'},
+  errors:{tab:'study',t:'Hata Defteri',s:'Kişisel hataların',back:'study'},
+  exam:{tab:'exam',t:'Sınavlar',s:'Blok · kümülatif · zayıf'},
+  stats:{tab:'stats',t:'İstatistik',s:'İlerleme ve notlar'}
+};
+let CUR='home';
+const TAB_LAST={home:'home',study:'study',exam:'exam',stats:'stats'};
+document.querySelectorAll('.tabbar button').forEach(b=>b.onclick=()=>{
+  const t=b.dataset.t;
+  if(ROUTES[CUR]&&ROUTES[CUR].tab===t)nav(t);          /* aktif sekmeye basıldı → köke dön */
+  else nav(TAB_LAST[t]||t);                             /* başka sekme → bıraktığın yer */
+});
+function nav(r){
+  if(!ROUTES[r])r='home';
+  CUR=r;const def=ROUTES[r];
+  TAB_LAST[def.tab]=r;
+  document.querySelectorAll('section').forEach(x=>x.classList.toggle('show',x.id===r));
+  document.querySelectorAll('.tabbar button').forEach(b=>b.classList.toggle('act',b.dataset.t===def.tab));
+  $('hTitle').textContent=def.t;$('hSub').textContent=def.s;
+  $('backB').classList.toggle('on',!!def.back);
+  if(r==='home')renderHome();
+  if(r==='study')renderStudyHub();
+  if(r==='map')renderMap();
+  if(r==='cards')startCards();
+  if(r==='listen')$('listenArea').innerHTML='<p class="muted">Yukarıdan mod seç. Shadowing telaffuz için en etkilisi.</p>';
+  if(r==='read')startRead();
+  if(r==='errors')renderErrors();
+  if(r==='sprint')$('sprintArea').innerHTML='<p class="muted">Yukarıdan sprint seç. 🧩 Cümle Kurma en zorlayıcı olanı.</p>';
+  if(r==='write')$('writeArea').innerHTML='<p class="muted">Yukarıdan mod seç. Kelime moduyla başla.</p>';
+  if(r==='exam')renderExam();
+  if(r==='stats')renderStats();
+  updateBadges();
+  try{window.scrollTo(0,0)}catch(e){}
+}
+function goBack(){const d=ROUTES[CUR];nav(d&&d.back?d.back:'home')}
+const go=nav; window.nav=nav; window.goBack=goBack; window.go=nav;
+function updateBadges(){
+  const due=dueCards().length;
+  const act=Object.values(S.errors).filter(e=>!e.cleared).length+S.customErrors.filter(e=>!e.cleared).length;
+  const miss=tasksToday().filter(x=>!x.ok).length;
+  $('dHome').classList.toggle('on',miss>0);
+  $('dStudy').classList.toggle('on',due>0);
+  const hc=$('hiCards');if(hc){hc.textContent=due?due:'✓';hc.className='hbadge'+(due?'':' ok')}
+  const he=$('hiErr');if(he){he.textContent=act?act:'✓';he.className='hbadge'+(act?'':' ok')}
 }
 
 /* ==================== HOME ==================== */
-function render(){$('stCount').textContent=S.streak.count;renderHome()}
+function render(){$('stCount').textContent=S.streak.count;drawRing();nav('home')}
 function renderHome(){
+  drawDaily();drawNag();drawRing();
+  /* devam et butonu */
+  const due=dueCards().length;
+  let cont,label,sub;
+  const nextB=(()=>{let r=null;C.blocks.forEach(b=>{if(!S.blocks[b.id].unlocked)return;b.bolums.forEach(bo=>{if(!r&&S.bolums[bo.id]&&!S.bolums[bo.id].done)r=bo})});return r})();
+  if(due>0){cont=()=>nav('cards');label='Kartlara Devam Et';sub=`${due} kart seni bekliyor`}
+  else if(nextB){cont=()=>bolumGo(nextB.id);label=`Bölüm ${nextB.id} — ${nextB.t}`;sub='Sıradaki ders seni bekliyor'}
+  else{cont=()=>{examTab='cum';nav('exam')};label='Kümülatif Sınav';sub='Her şey tamam — tekrar zamanı'}
+  $('contArea').innerHTML=`<button class="contB" id="contBtn"><span class="cic">▶</span><span style="flex:1">${label}<small>${sub}</small></span><span style="font-size:1.2rem">›</span></button>`;
+  $('contBtn').onclick=cont;
+  /* nerede kaldın özeti */
+  const curBlk=C.blocks.find(b=>S.blocks[b.id].unlocked&&!S.blocks[b.id].exam)||C.blocks[C.blocks.length-1];
+  const doneN=curBlk.bolums.filter(bo=>S.bolums[bo.id]&&S.bolums[bo.id].done).length;
+  const totalDone=doneBolums().length;
+  $('homeProgress').innerHTML=`<div class="row"><span class="tag grow" style="color:${curBlk.color}">Blok ${curBlk.id} — ${curBlk.name}</span>
+    <button class="btn" style="padding:4px 12px;font-size:.78rem" onclick="nav('map')">Haritayı Aç</button></div>
+    <div class="prog" style="margin-top:8px"><i style="width:${doneN/curBlk.bolums.length*100}%"></i></div>
+    <div class="row"><span class="muted grow" style="font-size:.82rem">Bu blokta ${doneN}/${curBlk.bolums.length} bölüm</span>
+    <span class="muted" style="font-size:.82rem">Toplam ${totalDone}/40</span></div>`;
+  updateBadges();
+}
+function renderStudyHub(){
+  const totalDone=doneBolums().length;
+  if($('hiMap'))$('hiMap').textContent=`${totalDone}/40 bölüm tamamlandı`;
+  if($('hiWrite'))$('hiWrite').textContent=S.daily.write?`bugün ${S.daily.write} doğru yazım`:'Klavyeyle harf harf yaz';
+  updateBadges();
+}
+function renderMap(){
   const m=$('metroMap');m.innerHTML='';
   C.blocks.forEach(b=>{
     const st=S.blocks[b.id];
@@ -682,10 +964,8 @@ function renderHome(){
   });
   const firstOpen=C.blocks.find(b=>S.blocks[b.id].unlocked&&!S.blocks[b.id].exam)||C.blocks[0];
   showBlock(firstOpen.id);
-  const due=dueCards().length;$('dueInfo').textContent=due?`${due} kart seni bekliyor`:'Bugünlük tamam ✓';
-  const act=Object.values(S.errors).filter(e=>!e.cleared).length+S.customErrors.filter(e=>!e.cleared).length;
-  $('errInfo').textContent=act?`${act} aktif hata`:'Liste temiz ✓';
 }
+window.bolumGo=function(id){nav('map');setTimeout(()=>bolumStudy(id,0),60)};
 function showBlock(id){
   const b=C.blocks.find(x=>x.id===id),st=S.blocks[id];
   let h=`<span class="tag" style="color:${b.color}">Blok ${b.id} — ${b.name}</span>`;
@@ -715,7 +995,7 @@ window.bolumStudy=function(id,stage){
   let bo=null,blk=null;C.blocks.forEach(b=>b.bolums.forEach(x=>{if(x.id===id){bo=x;blk=b}}));
   SM={id,stage:stage||0,bo,blk};
   drawStudy();
-  $('blockDetail').scrollIntoView({behavior:'smooth',block:'start'});
+  try{$('blockDetail').scrollIntoView({behavior:'smooth',block:'start'})}catch(e){}
 };
 function studyNav(){
   const names=['📖 Tanış','👂 Duy','✍️ Uygula','🎯 Test'];
@@ -726,7 +1006,7 @@ function drawStudy(){
   const {bo,blk,id,stage}=SM;
   const esc=s=>s.replace(/'/g,"\\'");
   let h=`<div class="row"><span class="tag grow" style="color:${blk.color}">Bölüm ${id} — ${bo.t}</span>
-    <button class="btn ghost" style="padding:3px 10px;font-size:.75rem" onclick="renderHome()">← Kapat</button></div>${studyNav()}`;
+    <button class="btn ghost" style="padding:3px 10px;font-size:.75rem" onclick="renderMap()">← Kapat</button></div>${studyNav()}`;
 
   if(stage===0){ /* TANIŞ */
     if(RULES[id]){h+=`<h3 style="margin:6px 0">📌 Kurallar & İpuçları</h3>`;
@@ -912,7 +1192,7 @@ window.bolumTest=function(id){
       const flat=[];C.blocks.forEach(b=>b.bolums.forEach(x=>flat.push({x,b})));
       const idx=flat.findIndex(f=>f.x.id===id);
       if(idx+1<flat.length){const nx=flat[idx+1];if(S.blocks[nx.b.id].unlocked&&!S.bolums[nx.x.id])S.bolums[nx.x.id]={done:false};}
-      save();renderHome();
+      save();renderMap();
     }
   }});
 };
@@ -925,7 +1205,7 @@ function runQuiz(container,qs,cfg){
       const pass=score>=(cfg.pass??Math.ceil(qs.length*.8));
       container.innerHTML=`<div class="res" style="color:${pass?'var(--ok)':'var(--bad)'}">${score}/${qs.length}</div>
       <p style="text-align:center">${pass?(cfg.passMsg||'Geçtin! ✅'):(cfg.failMsg||'Olmadı — biraz daha çalış, tekrar dene.')}</p>
-      <div class="row" style="justify-content:center;margin-top:10px"><button class="btn gold" onclick="renderHome();go('home')">İstasyona Dön</button></div>`;
+      <div class="row" style="justify-content:center;margin-top:10px"><button class="btn gold" onclick="nav('home')">İstasyona Dön</button></div>`;
       cfg.onEnd&&cfg.onEnd(score,qs.length,pass);touchStreak();$('stCount').textContent=S.streak.count;return;
     }
     const q=qs[i];
@@ -978,7 +1258,7 @@ function startCards(){
       let box=g===0?1:g===1?cur.box:Math.min(6,cur.box+1);
       const add=[0,1,3,7,14,30][box-1]??30;
       const d=new Date();d.setDate(d.getDate()+(g===0?0:add));
-      S.boxes[w[0]]={box,due:d.toISOString().slice(0,10)};save();
+      S.boxes[w[0]]={box,due:d.toISOString().slice(0,10)};S.daily.cards++;save();
       i++;show();
     });
   }
@@ -991,7 +1271,7 @@ $('mListenDic').onclick=()=>dictation();
 function listenRepeat(){
   const pool=shuffle(allSent(doneBolums())).slice(0,10);let i=0;
   function show(){
-    if(i>=pool.length){$('listenArea').innerHTML='<div class="card" style="text-align:center">✅ Tur bitti!</div>';touchStreak();return}
+    if(i>=pool.length){S.daily.listen++;save();$('listenArea').innerHTML='<div class="card" style="text-align:center">✅ Tur bitti!</div>';touchStreak();return}
     const {x}=pool[i];let revealed=false;
     $('listenArea').innerHTML=`<div class="tag">Dinle & Tekrar • ${i+1}/${pool.length}</div>
     <div class="card" style="text-align:center">
@@ -1013,7 +1293,7 @@ function listenRepeat(){
 function dictation(){
   const pool=shuffle(allSent(doneBolums())).slice(0,8);let i=0,score=0;
   function show(){
-    if(i>=pool.length){$('listenArea').innerHTML=`<div class="res">${score}/${pool.length}</div><p style="text-align:center">Dikte turu bitti!</p>`;touchStreak();return}
+    if(i>=pool.length){S.daily.listen++;save();$('listenArea').innerHTML=`<div class="res">${score}/${pool.length}</div><p style="text-align:center">Dikte turu bitti!</p>`;touchStreak();return}
     const {x}=pool[i];
     $('listenArea').innerHTML=`<div class="tag">Dikte • ${i+1}/${pool.length}</div>
     <div class="card">
@@ -1080,7 +1360,7 @@ $('errDrillBtn').onclick=()=>{
   const qs=[];shuffle(act).forEach(e=>{const it=e.items[Math.floor(Math.random()*e.items.length)];qs.push({prompt:it.q,opts:it.opts,a:it.a,eid:e.id})});
   let i=0;
   function step(){
-    if(i>=qs.length){renderErrors();$('errDrillArea').innerHTML='<div class="card" style="text-align:center">✅ Drill bitti!</div>';touchStreak();$('stCount').textContent=S.streak.count;return}
+    if(i>=qs.length){S.daily.drill++;save();renderErrors();$('errDrillArea').innerHTML='<div class="card" style="text-align:center">✅ Drill bitti!</div>';touchStreak();$('stCount').textContent=S.streak.count;return}
     const q=qs[i];
     let h=`<div class="tag">Hata Drilli • ${i+1}/${qs.length}</div><div class="bigru" style="font-size:1.15rem">${q.prompt}</div>`;
     q.opts.forEach((o,j)=>h+=`<button class="opt" data-j="${j}">${o}</button>`);
@@ -1238,6 +1518,203 @@ function buildSprint(){
   show();
 }
 
+
+
+/* ===== BİLDİRİM (uygulama açıkken) ===== */
+function notifSupported(){return 'Notification' in window}
+window.setupNotif=async function(){
+  if(!notifSupported()){alert('Tarayıcın bildirim desteklemiyor. Telefon alarmı kur: Saat → Alarm → "Rusça 10 dk".');return}
+  const p=await Notification.requestPermission();
+  if(p==='granted'){
+    S.notifOn=true;save();
+    new Notification('Русская Станция',{body:'Bildirim açıldı. Uygulama açıkken hedefin tamamlanmadıysa dürteceğim 🔔'});
+    drawDaily();
+  }else alert('İzin verilmedi. En güvenilir yol: telefonunun kendi alarmı — her gün aynı saate "Rusça 10 dk" kur.');
+};
+let nagTimer=null;
+function startNagLoop(){
+  if(nagTimer)clearInterval(nagTimer);
+  nagTimer=setInterval(()=>{
+    if(!S||!S.notifOn||!notifSupported()||Notification.permission!=='granted')return;
+    if(goalMet())return;
+    if(!document.hidden)return;
+    const miss=tasksToday().filter(x=>!x.ok).length;
+    new Notification('Rusça bekliyor 🇷🇺',{body:`${miss} görev duruyor · seri: ${S.streak.count} gün. 10 dakika yeter.`});
+  },30*60*1000);
+}
+
+/* ==================== SHADOWING ==================== */
+$('mShadow').onclick=()=>shadowing();
+function shadowing(){
+  const pool=shuffle(allSent(doneBolums())).slice(0,8);let i=0;
+  function show(){
+    if(i>=pool.length){S.daily.listen++;save();
+      $('listenArea').innerHTML='<div class="card" style="text-align:center">✅ Shadowing turu bitti!<br><span class="muted">Telaffuzun her turda oturur.</span></div>';touchStreak();return}
+    const {x}=pool[i];
+    $('listenArea').innerHTML=`<div class="tag">Shadowing • ${i+1}/${pool.length}</div>
+    <div class="card">
+      <p class="muted" style="text-align:center">Metne bak, ses çalarken <b>aynı anda sen de konuş</b> — peşinden değil, üstüne.</p>
+      <div class="bigru" style="font-size:1.2rem">${x[0]}</div>
+      <div style="text-align:center;color:var(--brass);font-size:.9rem">${x[1]}</div>
+      <div class="muted" style="text-align:center;font-size:.84rem;margin-top:4px">${x[2]}</div>
+      <div class="row" style="justify-content:center;margin-top:14px">
+        <button class="btn" id="sh1">🐢 Yavaş</button>
+        <button class="btn gold" id="sh2">▶ Normal</button>
+        <button class="btn" id="sh3">🔁 3x Üst Üste</button>
+      </div>
+      <div class="row" style="justify-content:center;margin-top:10px">
+        <button class="btn ok" id="shN">Sıradaki →</button>
+      </div>
+      <p class="muted" style="text-align:center;font-size:.76rem;margin-top:10px">💡 En az 3 kez üstüne konuş. Ritmi yakalamak kelimeyi bilmekten önemli.</p>
+    </div>`;
+    const say=(rate)=>{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(x[0]);u.lang='ru-RU';if(VOICES[0])u.voice=VOICES[0];u.rate=rate;speechSynthesis.speak(u)};
+    $('sh1').onclick=()=>say(0.6);
+    $('sh2').onclick=()=>say(0.9);
+    $('sh3').onclick=()=>{speechSynthesis.cancel();for(let k=0;k<3;k++){const u=new SpeechSynthesisUtterance(x[0]);u.lang='ru-RU';if(VOICES[0])u.voice=VOICES[0];u.rate=0.85;speechSynthesis.speak(u)}};
+    $('shN').onclick=()=>{i++;show()};
+    say(0.9);
+  }
+  show();
+}
+
+/* ==================== KİRİL YAZMA ==================== */
+const KB=[['й','ц','у','к','е','н','г','ш','щ','з','х','ъ'],
+          ['ф','ы','в','а','п','р','о','л','д','ж','э'],
+          ['я','ч','с','м','и','т','ь','б','ю','ё']];
+$('wrWord').onclick=()=>writeMode('word');
+$('wrSent').onclick=()=>writeMode('sent');
+function writeMode(kind){
+  const pool=doneBolums();
+  let items;
+  if(kind==='word'){
+    const v=allVocab(pool).filter(({w})=>w[0].split(' ').length===1&&w[0].length<=14);
+    items=shuffle(v).slice(0,10).map(({w})=>({ru:w[0],tl:w[1],tr:w[2]}));
+  }else{
+    items=shuffle(allSent(pool)).slice(0,6).map(({x})=>({ru:x[0],tl:x[1],tr:x[2]}));
+  }
+  if(!items.length){$('writeArea').innerHTML='<div class="card" style="text-align:center">Yeterli malzeme yok.</div>';return}
+  let i=0,score=0;
+  function show(){
+    if(i>=items.length){
+      $('writeArea').innerHTML=`<div class="res" style="color:${score>=items.length*.7?'var(--ok)':'var(--bad)'}">${score}/${items.length}</div>
+      <p style="text-align:center" class="muted">Kiril yazma turu bitti</p>
+      <div class="row" style="justify-content:center"><button class="btn gold" onclick="writeMode('${kind}')">Tekrar</button></div>`;
+      touchStreak();return}
+    const it=items[i];let typed='';
+    $('writeArea').innerHTML=`<div class="tag">${kind==='word'?'Kelime':'Cümle'} Yazma • ${i+1}/${items.length}</div>
+    <div class="card">
+      <p class="muted">Kiril harflerle yaz:</p>
+      <div class="bigru" style="font-size:1.1rem;padding:6px">${it.tr}</div>
+      <div class="typeBox" id="tb"><span class="cur"></span></div>
+      <div class="row" style="justify-content:center;margin-top:8px">
+        <button class="btn ghost" style="padding:5px 12px;font-size:.78rem" id="hintB">👁 İpucu (okunuş)</button>
+        <button class="btn ghost" style="padding:5px 12px;font-size:.78rem" id="skipB">Pas</button>
+      </div>
+      <div id="hintA" style="text-align:center;color:var(--brass);font-size:.88rem;min-height:20px;margin-top:4px"></div>
+      <div class="kbd" id="kb"></div>
+      <div class="row" style="justify-content:center;margin-top:10px"><button class="btn gold" id="okB">Kontrol Et</button></div>
+      <div id="wRes" style="margin-top:10px"></div>
+    </div>`;
+    const kb=$('kb');
+    KB.forEach(row=>{row.forEach(ch=>{
+      const b=document.createElement('button');b.textContent=ch;
+      b.onclick=()=>{typed+=ch;draw()};kb.appendChild(b)});
+      const br=document.createElement('div');br.style.flexBasis='100%';br.style.height='0';kb.appendChild(br)});
+    const sp=document.createElement('button');sp.className='wide';sp.textContent='boşluk';
+    sp.onclick=()=>{typed+=' ';draw()};kb.appendChild(sp);
+    const bs=document.createElement('button');bs.className='wide';bs.textContent='⌫ sil';
+    bs.onclick=()=>{typed=typed.slice(0,-1);draw()};kb.appendChild(bs);
+    const cl=document.createElement('button');cl.className='wide';cl.textContent='↺ temizle';
+    cl.onclick=()=>{typed='';draw()};kb.appendChild(cl);
+    function draw(){const tb=$('tb');tb.classList.toggle('filled',typed.length>0);tb.innerHTML=typed+'<span class="cur"></span>'}
+    $('hintB').onclick=()=>$('hintA').textContent=it.tl;
+    $('skipB').onclick=()=>rev(false);
+    $('okB').onclick=()=>{if(!typed.trim())return;rev(norm(typed)===norm(it.ru))};
+    function rev(ok){
+      if(ok){score++;S.daily.write++;save()}
+      $('okB').disabled=true;
+      let diff='';
+      if(!ok){
+        const a=it.ru.split(''),b2=typed.split('');
+        diff=a.map((ch,k)=>`<span style="color:${b2[k]===ch?'var(--ok)':'var(--bad)'}">${ch}</span>`).join('');
+      }
+      $('wRes').innerHTML=`${ok?'<p style="color:var(--ok);text-align:center;font-weight:600">✅ Doğru yazdın!</p>':
+        `<p style="text-align:center;color:var(--bad);font-weight:600">Doğrusu:</p><div class="bigru" style="font-size:1.1rem">${diff}</div>
+         <p class="muted" style="text-align:center;font-size:.8rem">senin yazdığın: ${typed||'(boş)'}</p>`}
+        <div class="muted" style="text-align:center;font-size:.84rem">${it.tl}</div>
+        <div class="row" style="justify-content:center;margin-top:10px">
+          <button class="btn ghost" onclick="speak('${it.ru.replace(/'/g,"\\'")}')">🔊</button>
+          <button class="btn ok" id="wn">Sıradaki →</button></div>`;
+      $('wn').onclick=()=>{i++;show()};
+    }
+  }
+  show();
+}
+
+/* ==================== İSTATİSTİK ==================== */
+function renderStats(){
+  const days=[...S.history,S.daily];
+  const last7=days.slice(-7);
+  const totalMin=Math.round(days.reduce((a,d)=>a+d.sec,0)/60);
+  const totalPod=days.reduce((a,d)=>a+(d.podcast||0),0);
+  const totalCards=days.reduce((a,d)=>a+(d.cards||0),0);
+  const activeDays=days.filter(d=>d.sec>60).length;
+  const pool=allVocab(doneBolums());
+  const weak=pool.filter(({w})=>{const b=S.boxes[w[0]];return !b||b.box<=2});
+  const mastered=pool.filter(({w})=>{const b=S.boxes[w[0]];return b&&b.box>=5});
+  const doneB=doneBolums().length,totalB=40;
+  const maxSec=Math.max(goalSec(),...last7.map(d=>d.sec));
+  const dayName=d=>['Paz','Pzt','Sal','Çar','Per','Cum','Cmt'][new Date(d).getDay()];
+
+  let h=`<div class="grid" style="grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:12px">
+    <div class="stat"><b>${S.streak.count}</b><span>🔥 gün seri</span></div>
+    <div class="stat"><b>${totalMin}</b><span>toplam dakika</span></div>
+    <div class="stat"><b>${totalCards}</b><span>kart tekrarı</span></div>
+    <div class="stat"><b>${totalPod}</b><span>dk dinleme</span></div>
+  </div>`;
+
+  h+=`<div class="card"><b>Son 7 Gün</b><div class="bars">`;
+  last7.forEach(d=>{
+    const pc=Math.max(3,Math.round(d.sec/maxSec*100));
+    h+=`<div class="bcol"><div class="bar ${d.sec<goalSec()?'z':''}" style="height:${pc}%" title="${Math.round(d.sec/60)} dk"></div><div class="bl">${dayName(d.date)}</div></div>`;
+  });
+  h+=`</div><p class="muted" style="font-size:.76rem">Altın = hedef tutturuldu · gri = eksik kaldı</p></div>`;
+
+  h+=`<div class="card"><b>Kelime Hazinesi</b>
+    <div class="row" style="margin-top:8px"><span class="grow muted">Havuzdaki kelime</span><b>${pool.length}</b></div>
+    <div class="prog"><i style="width:${pool.length?mastered.length/pool.length*100:0}%;background:var(--ok)"></i></div>
+    <div class="row"><span class="grow muted">🟢 Sağlamlaşan (kutu 5-6)</span><b style="color:var(--ok)">${mastered.length}</b></div>
+    <div class="row"><span class="grow muted">🔴 Zayıf (kutu 1-2)</span><b style="color:var(--bad)">${weak.length}</b></div>
+    <div class="row"><span class="grow muted">Tamamlanan bölüm</span><b>${doneB}/${totalB}</b></div>
+    <div class="prog"><i style="width:${doneB/totalB*100}%"></i></div></div>`;
+
+  if(weak.length){
+    h+=`<div class="card"><b>En Zayıf 8 Kelime</b><div style="margin-top:6px">`;
+    shuffle(weak).slice(0,8).forEach(({w})=>{
+      h+=`<div class="row" style="padding:4px 0;border-bottom:1px solid var(--line)">
+        <button class="btn ghost" style="padding:2px 7px" onclick="speak('${w[0].replace(/'/g,"\\'")}')">🔊</button>
+        <span class="grow"><b>${w[0]}</b> <span class="muted" style="font-size:.78rem">${w[1]}</span></span>
+        <span style="color:var(--brass);font-size:.82rem">${w[2]}</span></div>`});
+    h+=`</div><div class="row" style="margin-top:8px"><button class="btn gold" onclick="go('exam');examTab='weak';renderExam()">Zayıf Noktalar Turu →</button></div></div>`;
+  }
+
+  /* Ders notları */
+  h+=`<div class="card"><div class="row"><b class="grow">📝 Ders Notlarım</b>
+    <button class="btn gold" style="padding:4px 12px;font-size:.78rem" onclick="addNote()">+ Not Ekle</button></div>
+    <p class="muted" style="font-size:.78rem;margin-top:4px">Claude ile derste yakaladığın hataları, kuralları buraya düş.</p>
+    <div style="margin-top:8px">`;
+  if(!S.notes.length)h+=`<p class="muted" style="text-align:center;padding:10px">Henüz not yok.</p>`;
+  else [...S.notes].reverse().forEach((n,idx)=>{
+    h+=`<div class="noteit"><div class="nd">${n.d} <span style="float:right;cursor:pointer" onclick="delNote(${S.notes.length-1-idx})">✕</span></div>${n.t}</div>`});
+  h+=`</div></div>`;
+  $('statsArea').innerHTML=h;
+}
+window.addNote=function(){
+  const t=prompt('Not (ders hatası, kural, kelime...):');
+  if(t&&t.trim()){S.notes.push({d:today(),t:t.trim().replace(/</g,'&lt;')});save();renderStats()}
+};
+window.delNote=function(i){S.notes.splice(i,1);save();renderStats()};
+
 /* ==================== EXAM ==================== */
 let examTab='block';
 $('tabBlock').onclick=()=>{examTab='block';renderExam()};
@@ -1265,7 +1742,7 @@ function renderBlockExam(){
       onEnd:(sc,tt,pass)=>{if(pass){S.blocks[target.id].exam=true;
         const nx=C.blocks.find(b=>b.id===target.id+1);
         if(nx){S.blocks[nx.id].unlocked=true;S.bolums[nx.bolums[0].id]={done:false}}
-        save();renderHome();}}
+        save();renderHome();if(CUR==='map')renderMap();}}
     });
   };
 }
